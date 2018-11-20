@@ -1,6 +1,6 @@
-package com.codingnomads.impacttracker.Data;
+package com.codingnomads.impacttracker.data;
 
-import com.codingnomads.impacttracker.Logic.Commitment;
+import com.codingnomads.impacttracker.logic.Commitment;
 import org.springframework.stereotype.Repository;
 
 @Repository

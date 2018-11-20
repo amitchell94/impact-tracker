@@ -1,7 +1,7 @@
-package com.codingnomads.impacttracker.Data;
+package com.codingnomads.impacttracker.data;
 
 
-import com.codingnomads.impacttracker.Logic.Commitment;
+import com.codingnomads.impacttracker.logic.Commitment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;

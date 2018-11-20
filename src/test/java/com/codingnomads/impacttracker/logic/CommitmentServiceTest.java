@@ -1,6 +1,6 @@
-package com.codingnomads.impacttracker.Logic;
+package com.codingnomads.impacttracker.logic;
 
-import com.codingnomads.impacttracker.Data.MySqlCommitmentRepository;
+import com.codingnomads.impacttracker.data.MySqlCommitmentRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;

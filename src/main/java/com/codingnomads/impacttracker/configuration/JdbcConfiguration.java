@@ -1,4 +1,4 @@
-package com.codingnomads.impacttracker.Configuration;
+package com.codingnomads.impacttracker.configuration;
 
 
 import org.springframework.context.annotation.Bean;
