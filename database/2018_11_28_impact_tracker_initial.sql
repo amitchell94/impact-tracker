@@ -36,7 +36,7 @@ CREATE TABLE `commitments` (
   KEY `commitments_r_fk` (`c_r_id`),
   CONSTRAINT `commitments_r_fk` FOREIGN KEY (`c_r_id`) REFERENCES `reductions` (`r_id`),
   CONSTRAINT `commitments_u_fk` FOREIGN KEY (`c_u_id`) REFERENCES `user` (`u_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -45,6 +45,7 @@ CREATE TABLE `commitments` (
 
 LOCK TABLES `commitments` WRITE;
 /*!40000 ALTER TABLE `commitments` DISABLE KEYS */;
+INSERT INTO `commitments` VALUES (15,1,4,'2010-04-20','2018-04-28',NULL),(16,1,1,'2017-04-15','2018-11-15',NULL),(17,1,2,'0009-09-09','0011-11-11',NULL);
 /*!40000 ALTER TABLE `commitments` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -58,13 +59,14 @@ DROP TABLE IF EXISTS `impacts`;
 CREATE TABLE `impacts` (
   `i_id` int(11) NOT NULL AUTO_INCREMENT,
   `i_r_id` int(11) NOT NULL,
-  `i_impact_per_unit` int(11) NOT NULL,
-  `i_impact_type` int(11) NOT NULL,
-  `i_unit` varchar(45) NOT NULL,
+  `i_impact_per_unit` decimal(10,4) NOT NULL,
+  `i_impact_unit` varchar(45) NOT NULL,
+  `i_impact_type` varchar(45) NOT NULL,
+  `i_reduction_unit` varchar(45) NOT NULL,
   PRIMARY KEY (`i_id`),
   KEY `impacts_r_fk` (`i_r_id`),
   CONSTRAINT `impacts_r_fk` FOREIGN KEY (`i_r_id`) REFERENCES `reductions` (`r_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -73,6 +75,7 @@ CREATE TABLE `impacts` (
 
 LOCK TABLES `impacts` WRITE;
 /*!40000 ALTER TABLE `impacts` DISABLE KEYS */;
+INSERT INTO `impacts` VALUES (1,5,2000.0000,'gallon','water use','pound'),(2,3,0.0004,'ton','co2 emissions','mile'),(3,4,2.3000,'ton','co2 emissions','ton'),(5,5,0.0110,'ton','co2 emissions','pound'),(6,1,0.0030,'ton','co2 emissions','day'),(7,1,600.0000,'gallon','water use','day'),(8,2,550.0000,'gallon','water use','day'),(9,2,0.0020,'ton','co2 emissions','day');
 /*!40000 ALTER TABLE `impacts` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -86,8 +89,9 @@ DROP TABLE IF EXISTS `reductions`;
 CREATE TABLE `reductions` (
   `r_id` int(11) NOT NULL AUTO_INCREMENT,
   `r_reduction` varchar(45) NOT NULL,
+  `r_average_per_day` decimal(10,7) NOT NULL,
   PRIMARY KEY (`r_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -96,6 +100,7 @@ CREATE TABLE `reductions` (
 
 LOCK TABLES `reductions` WRITE;
 /*!40000 ALTER TABLE `reductions` DISABLE KEYS */;
+INSERT INTO `reductions` VALUES (1,'vegan',1.0000000),(2,'vegetarianism',1.0000000),(3,'driving',29.2000000),(4,'palm oil consumption',0.0000027),(5,'beef',222.2000000);
 /*!40000 ALTER TABLE `reductions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -111,7 +116,7 @@ CREATE TABLE `user` (
   `u_name` varchar(45) NOT NULL,
   `u_password` varchar(45) NOT NULL,
   PRIMARY KEY (`u_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -120,6 +125,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
+INSERT INTO `user` VALUES (1,'Bogus123','password1');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -132,4 +138,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-11-15 17:10:14
+-- Dump completed on 2018-11-27 17:24:42
