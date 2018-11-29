@@ -1,9 +1,13 @@
-package com.codingnomads.impacttracker.data;
+package com.codingnomads.impacttracker.logic.commitment;
 
-import com.codingnomads.impacttracker.logic.Commitment;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 public interface CommitmentRepository {
     Commitment save(Commitment commitment);
+
+
+    List<Commitment> getCommitmentsFromUserId(int userId);
 }

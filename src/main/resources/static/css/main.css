@@ -10,3 +10,19 @@
 .header-padding {
     padding: 35px;
 }
+
+.card {
+    background-color: white;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.body {
+    font-family: Arial;
+    padding: 20px;
+    background: #ffffff;
+}
+
+.impact-text {
+    font-size: 18pt;
+}

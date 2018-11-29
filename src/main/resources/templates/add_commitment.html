@@ -4,14 +4,14 @@
     <div th:replace="fragments/header :: header"></div>
 </head>
 <body>
-<div th:replace="fragments/impact-navbar :: impact-navbar"></div>
-<div class="container col-sm-4 ">
+<div th:replace="fragments/impact-navbar :: impact-navbar"/>
+<div class="container col-sm-4">
     <h3 class="header-padding">Add a new commitment</h3>
     <form action="#" th:action="@{/add_commitment}" th:object="${commitment}" method="post">
         <div class="form-group row">
-            <label for="reduction" class="col-sm-6 col-form-label">I am committed to </label>
-            <div class="col-sm-6">
-                <select class="form-control form-control-md" id="reduction" th:field="*{reductionId}">
+            <label for="reduction" class="col-sm-5 col-form-label">I am committed to </label>
+            <div class="col-sm-7">
+                <select class="form-control form-control-md " id="reduction" th:field="*{reductionId}">
                     <option value="1">Veganism</option>
                     <option value="2">Vegetarianism</option>
                     <option value="3">Not driving</option>
@@ -20,15 +20,15 @@
             </div>
         </div>
         <div class="form-group row">
-            <label for="startdate" class="col-sm-6 col-form-label">from</label>
-            <div class="col-sm-6">
-                <input type="date" class="form-control w-auto" id="startdate"  placeholder="Date" th:field="*{startDate}">
+            <label for="startdate" class="col-sm-5 col-form-label">from</label>
+            <div class="col-sm-7">
+                <input type="date" class="form-control" id="startdate" placeholder="Date" th:field="*{startDate}">
             </div>
         </div>
         <div class="form-group row">
-            <label for="enddate" class="col-sm-6 col-form-label">until</label>
-            <div class="col-sm-6">
-                <input type="date" class="form-control w-auto" id="enddate" placeholder="Date" th:field="*{endDate}">
+            <label for="enddate" class="col-sm-5 col-form-label">until</label>
+            <div class="col-sm-7">
+                <input type="date" class="form-control" id="enddate" placeholder="Date" th:field="*{endDate}">
             </div>
         </div>
         <div class="form-group row">

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="fragments/header :: header"></div>
+</head>
+<body>
+<div th:replace="fragments/impact-navbar :: impact-navbar"/>
+<div class="body">
+    <div th:if="${totalImpact.tonsOfCo2} > 0" class="card">
+        <h2>CO<sub>2</sub> Emissions</h2>
+        <img  style="width: 150px; height: 150px; float: left;" src="/img/co2.png"/>
+        <p class="impact-text">You have saved <span th:text="${totalImpact.tonsOfCo2}"></span> tons of CO<sub>2</sub> from entering the atmosphere!</p>
+    </div>
+    <div th:if="${totalImpact.gallonsOfWater} > 0" class="card">
+        <h2>Water Usage</h2>
+        <img  style="width: 150px; float: left;" src="/img/water.png"/>
+        <p class="impact-text">You have saved <span th:text="${totalImpact.gallonsOfWater}"></span> gallons of water from being wasted!</p>
+    </div>
+</div>
+</body>
+</html>

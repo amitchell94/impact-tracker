@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
 <div th:fragment="impact-navbar">
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-dark bg-info">
     <a class="navbar-brand" href="#">Impact Tracker</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
             aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -10,8 +10,9 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
-            <a class="nav-item nav-link active" href="#">My Impact <span class="sr-only">(current)</span></a>
-            <a class="nav-item nav-link" href="#">Commitments</a>
+            <a class="nav-item nav-link" th:classappend="${#httpServletRequest.getRequestURI() == '/my_impact' ? 'active':''}" href="/my_impact">My Impact</a>
+            <a class="nav-item nav-link" th:classappend="${#httpServletRequest.getRequestURI() == '/add_commitment' ? 'active':''}" href="/add_commitment">Commitments</a>
+
         </div>
     </div>
 </nav>

@@ -1,15 +1,12 @@
 package com.codingnomads.impacttracker.presentation;
 
-import com.codingnomads.impacttracker.logic.Commitment;
-import com.codingnomads.impacttracker.logic.CommitmentService;
+import com.codingnomads.impacttracker.logic.Statistic;
+import com.codingnomads.impacttracker.logic.StatisticsService;
+import com.codingnomads.impacttracker.logic.commitment.Commitment;
+import com.codingnomads.impacttracker.logic.commitment.CommitmentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-
-import java.time.LocalDate;
 
 @RestController
 @RequestMapping("/")
@@ -17,6 +14,9 @@ public class CommitmentController {
 
     @Autowired
     CommitmentService commitmentService;
+
+    @Autowired
+    StatisticsService statisticsService;
 
     @PostMapping("/add_commitment")
     public ModelAndView commitment(@ModelAttribute Commitment commitment, ModelAndView modelAndView) {
@@ -27,5 +27,10 @@ public class CommitmentController {
         modelAndView.addObject("savedCommitment", savedCommitment);
 
         return modelAndView;
+    }
+
+    @GetMapping("get_statistic")
+    public Statistic getStatistic () {
+        return statisticsService.getTotalImpact(1);
     }
 }
