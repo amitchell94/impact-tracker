@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="fragments/header :: header"></div>
+</head>
+
+<body>
+<div th:replace="fragments/impact-navbar :: impact-navbar"/>
+
+<h1>
+    All Commitments
+</h1>
+<table class="table">
+    <thead>
+    <th>Commitment ID</th>
+    <th>Reduction ID</th>
+    <th>Start Date</th>
+    <th>End Date</th>
+    <th>Amount</th>
+    <th>Delete</th>
+    <th>Update</th>
+
+    </thead>
+    <tr th:each="commitment : ${commitmentlist}">
+        <td th:text="${commitment.id}"></td>
+        <td th:text="${commitment.reductionId}"></td>
+        <td th:text="${commitment.startDate}"></td>
+        <td th:text="${commitment.endDate}"></td>
+        <td th:text="${commitment.amountToReduceBy}"></td>
+
+        <td>
+            <a th:href="@{/deletecommitment(id=${commitment.id})}" class="btn btn-danger">Delete</a>
+        </td>
+        <td>
+            <a th:href="@{'/updatecommitment/' + ${commitment.id}}" class="btn btn-update">Update</a>
+        </td>
+    </tr>
+</table>
+
+
+</div>
+</body>
+</html>

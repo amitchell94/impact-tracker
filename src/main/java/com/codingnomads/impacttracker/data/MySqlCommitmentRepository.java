@@ -46,5 +46,44 @@ public class MySqlCommitmentRepository implements CommitmentRepository {
         return jdbcTemplate.query(query, namedParameters, rowMapper);
     }
 
+    @Override
+    public Commitment updateCommitmentById(int id, Commitment commitment) {
+        String query = "UPDATE " + commitmentTable + " SET c_r_id =:reductionId, c_start_date= :startDate, c_end_date= :endDate, c_amount=:amountToReduceBy " +
+        "WHERE c_id = :id";
+        SqlParameterSource namedParameters = new BeanPropertySqlParameterSource(commitment);
+        jdbcTemplate.update(query,namedParameters);
+        return commitment;
+    }
+
+    @Override
+    public void deleteCommitmentById(int id) {
+        String query = "DELETE FROM " + commitmentTable + " WHERE c_id = :id";
+        SqlParameterSource namedParameters = new MapSqlParameterSource().addValue("id", id);
+        jdbcTemplate.update(query, namedParameters);
+    }
+
+    @Override
+    public Commitment getCommitmentById(int id) {
+        String query = "SELECT * FROM " + commitmentTable + " WHERE c_id = :id";
+        SqlParameterSource namedParameters = new MapSqlParameterSource().addValue("id", id);
+        return jdbcTemplate.queryForObject(query, namedParameters, rowMapper);
+    }
+
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

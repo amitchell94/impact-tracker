@@ -22,4 +22,16 @@ public class CommitmentService {
         return commitmentRepository.getCommitmentsFromUserId(userId);
     }
 
+    public Commitment updateCommitmentById(int id, Commitment commitment){
+        return commitmentRepository.updateCommitmentById(id, commitment);
+    }
+
+    public void deleteCommitmentById(int id){
+        commitmentRepository.deleteCommitmentById(id);
+    }
+
+
+    public Commitment getCommitmentById(Integer id) {
+        return commitmentRepository.getCommitmentById(id);
+    }
 }

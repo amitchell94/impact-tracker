@@ -10,4 +10,10 @@ public interface CommitmentRepository {
 
 
     List<Commitment> getCommitmentsFromUserId(int userId);
+
+    Commitment updateCommitmentById(int id, Commitment commitment);
+
+    public void deleteCommitmentById(int id);
+
+    Commitment getCommitmentById(int id);
 }
