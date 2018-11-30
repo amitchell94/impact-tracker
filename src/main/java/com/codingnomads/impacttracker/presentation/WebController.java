@@ -18,6 +18,14 @@ public class WebController {
         modelAndView.setViewName("home");
         return modelAndView;
     }
+
+    @GetMapping("/my_impact")
+    public ModelAndView myImpact(ModelAndView modelAndView) {
+        modelAndView.setViewName("my_impact");
+        modelAndView.addObject("totalImpact", statisticsService.getTotalImpact(1));
+        return modelAndView;
+    }
+
     @GetMapping("/add_commitment")
     public ModelAndView addCommitment(ModelAndView modelAndView) {
         Commitment commitment = new Commitment();
@@ -26,13 +34,10 @@ public class WebController {
         modelAndView.addObject("commitment",commitment);
         return modelAndView;
     }
-    @GetMapping("/my_impact")
-    public ModelAndView myImpact(ModelAndView modelAndView) {
-        modelAndView.setViewName("my_impact");
-        modelAndView.addObject("totalImpact", statisticsService.getTotalImpact(1));
-        return modelAndView;
-    }
+
 }
+
+
 
 
 
