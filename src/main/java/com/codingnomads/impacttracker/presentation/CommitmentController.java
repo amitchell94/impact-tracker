@@ -21,26 +21,31 @@ public class CommitmentController {
     @Autowired
     private StatisticsService statisticsService;
 
-    @PostMapping("/add_commitment")
+    //add variable for username once security is added
+
+    @GetMapping("/commitments")
+    public ModelAndView allCommitments(ModelAndView modelAndView){
+        modelAndView.addObject("commitmentlist", commitmentService.getCommitmentsFromUserId(1));
+        modelAndView.setViewName("/commitments");
+        return modelAndView;
+    }
+
+    @GetMapping("/addcommitment")
+    public ModelAndView addCommitment(ModelAndView modelAndView) {
+        Commitment commitment = new Commitment();
+
+        modelAndView.setViewName("add_commitment");
+        modelAndView.addObject("commitment",commitment);
+        return modelAndView;
+    }
+
+    @PostMapping("/addcommitment")
     public ModelAndView commitment(@ModelAttribute Commitment commitment, ModelAndView modelAndView) {
         commitment.setUserId(1);
 
         Commitment savedCommitment = commitmentService.save(commitment);
         modelAndView.setViewName("add_commitment_complete");
         modelAndView.addObject("savedCommitment", savedCommitment);
-        return modelAndView;
-    }
-
-    @GetMapping("get_statistic")
-    public Statistic getStatistic () {
-        return statisticsService.getTotalImpact(1);
-    }
-
-    //add variable for username once security is added
-    @GetMapping("/commitments")
-    public ModelAndView allCommitments(ModelAndView modelAndView){
-        modelAndView.addObject("commitmentlist", commitmentService.getCommitmentsFromUserId(1));
-        modelAndView.setViewName("/commitments");
         return modelAndView;
     }
 

@@ -55,12 +55,12 @@ public class StatisticsServiceTest {
         commitment2.setEndDate(VALID_END_DATE);
 
         impact1 = new ImpactWithAverage();
-        impact1.setImpactType(VALID_IMPACT_TYPE);
-        impact1.setImpactPerUnit(VALID_IMPACT_PER_UNIT);
+        impact1.getImpact().setImpactType(VALID_IMPACT_TYPE);
+        impact1.getImpact().setImpactPerUnit(VALID_IMPACT_PER_UNIT);
         impact1.setAveragePerDay(VALID_AVERAGE_PER_DAY);
         impact2 = new ImpactWithAverage();
-        impact2.setImpactType(SECOND_VALID_IMPACT_TYPE);
-        impact2.setImpactPerUnit(SECOND_VALID_IMPACT_PER_UNIT);
+        impact2.getImpact().setImpactType(SECOND_VALID_IMPACT_TYPE);
+        impact2.getImpact().setImpactPerUnit(SECOND_VALID_IMPACT_PER_UNIT);
         impact2.setAveragePerDay(SECOND_VALID_AVERAGE_PER_DAY);
 
         impactService = Mockito.mock(ImpactService.class);

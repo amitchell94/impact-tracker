@@ -11,11 +11,11 @@
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
                     <a class="nav-item nav-link"
-                       th:classappend="${#httpServletRequest.getRequestURI() == '/my_impact' ? 'active':''}"
-                       href="/my_impact">My Impact</a>
+                       th:classappend="${#httpServletRequest.getRequestURI() == '/impacts' ? 'active':''}"
+                       href="/impacts">My Impact</a>
                     <a class="nav-item nav-link"
-                       th:classappend="${#httpServletRequest.getRequestURI() == '/add_commitment' ? 'active':''}"
-                       href="/add_commitment">Commitments</a>
+                       th:classappend="${#httpServletRequest.getRequestURI() == '/commitments' ? 'active':''}"
+                       href="/commitments">Commitments</a>
 
                 </div>
             </div>

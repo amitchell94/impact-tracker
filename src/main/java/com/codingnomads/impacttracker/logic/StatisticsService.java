@@ -68,12 +68,12 @@ public class StatisticsService {
         Statistic impactPerDay = new Statistic();
 
         for (ImpactWithAverage impact : impacts) {
-            switch (impact.getImpactType()) {
+            switch (impact.getImpact().getImpactType()) {
                 case "water use":
-                    impactPerDay.setGallonsOfWater((long)(impact.getImpactPerUnit() * impact.getAveragePerDay()));
+                    impactPerDay.setGallonsOfWater((long)(impact.getImpact().getImpactPerUnit() * impact.getAveragePerDay()));
                     break;
                 case "co2 emissions":
-                    impactPerDay.setTonsOfCo2(impact.getImpactPerUnit() * impact.getAveragePerDay());
+                    impactPerDay.setTonsOfCo2(impact.getImpact().getImpactPerUnit() * impact.getAveragePerDay());
                     break;
             }
         }
