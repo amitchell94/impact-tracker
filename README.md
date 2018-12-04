@@ -5,6 +5,8 @@ A Java application which allows you to enter positive impact commitments and kee
 
 The application is accessable through a web page and all user info is stored in a MySQL database.
 
+URL: http://18.220.98.185
+
 ## Schemas
 There are two schemas included in this project:
 * [Use Cases](diagrams/UseCase/ImpactTrackerUserCaseDiagram.png)
