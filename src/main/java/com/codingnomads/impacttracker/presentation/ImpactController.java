@@ -15,7 +15,7 @@ public class ImpactController {
     @GetMapping("/impacts")
     public ModelAndView myImpact(ModelAndView modelAndView) {
         modelAndView.setViewName("my_impact");
-        modelAndView.addObject("totalImpact", statisticsService.getTotalImpact(1));
+        modelAndView.addObject("totalImpact", statisticsService.getImpactForTimePeriod(1, 0));
         return modelAndView;
     }
 }

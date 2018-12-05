@@ -7,6 +7,7 @@ import com.codingnomads.impacttracker.logic.impact.ImpactWithAverage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,7 +21,6 @@ public class StatisticsService {
     private CommitmentService commitmentService;
 
 
-
     @Autowired
     public StatisticsService(ImpactService impactService, CommitmentService commitmentService) {
         this.impactService = impactService;
@@ -32,17 +32,22 @@ public class StatisticsService {
         return (double) Math.round(input * 100d) / 100d;
     }
 
-    public Statistic getTotalImpact(int userId) {
+    public Statistic getImpactForTimePeriod(int userId, int timePeriodInDays) {
 
         List<Commitment> commitments = commitmentService.getCommitmentsFromUserId(userId);
-
-        Statistic totalImpact = new Statistic();
+        Statistic impactInTimePeriod = new Statistic();
 
         Map<Integer, List<ImpactWithAverage>> reductionImpactMap = new HashMap<>();
 
-        for (Commitment commitmment : commitments) {
+        for (Commitment commitment : commitments) {
+            long daysCommitted;
+            if (timePeriodInDays == 0) {
+                daysCommitted = DAYS.between(commitment.getStartDate(), commitment.getEndDate());
+            } else {
+                daysCommitted = setDaysCommitted(commitment, timePeriodInDays);
+            }
 
-            int reductionId = commitmment.getReductionId();
+            int reductionId = commitment.getReductionId();
 
             if (!reductionImpactMap.containsKey(reductionId)) {
                 reductionImpactMap.put(reductionId,
@@ -51,26 +56,23 @@ public class StatisticsService {
 
             Statistic impactPerDay = getImpactPerDay(reductionImpactMap.get(reductionId));
 
-            long daysCommitted = DAYS.between(commitmment.getStartDate(), commitmment.getEndDate());
+            impactInTimePeriod.setTonsOfCo2(impactInTimePeriod.getTonsOfCo2() + (impactPerDay.getTonsOfCo2() * daysCommitted));
 
-            totalImpact.setTonsOfCo2(totalImpact.getTonsOfCo2() + (impactPerDay.getTonsOfCo2() * daysCommitted));
-
-            totalImpact.setGallonsOfWater(totalImpact.getGallonsOfWater()
+            impactInTimePeriod.setGallonsOfWater(impactInTimePeriod.getGallonsOfWater()
                     + (impactPerDay.getGallonsOfWater() * daysCommitted));
-
         }
 
-        totalImpact.setTonsOfCo2(roundToTwoDP(totalImpact.getTonsOfCo2()));
-        return totalImpact;
+        impactInTimePeriod.setTonsOfCo2(roundToTwoDP(impactInTimePeriod.getTonsOfCo2()));
+        return impactInTimePeriod;
     }
 
-    public Statistic getImpactPerDay(List<ImpactWithAverage> impacts) {
+    private Statistic getImpactPerDay(List<ImpactWithAverage> impacts) {
         Statistic impactPerDay = new Statistic();
 
         for (ImpactWithAverage impact : impacts) {
             switch (impact.getImpact().getImpactType()) {
                 case "water use":
-                    impactPerDay.setGallonsOfWater((long)(impact.getImpact().getImpactPerUnit() * impact.getAveragePerDay()));
+                    impactPerDay.setGallonsOfWater((long) (impact.getImpact().getImpactPerUnit() * impact.getAveragePerDay()));
                     break;
                 case "co2 emissions":
                     impactPerDay.setTonsOfCo2(impact.getImpact().getImpactPerUnit() * impact.getAveragePerDay());
@@ -79,4 +81,48 @@ public class StatisticsService {
         }
         return impactPerDay;
     }
+
+    private long setDaysCommitted(Commitment commitment, int timePeriodInDays) {
+
+        LocalDate today = LocalDate.now();
+        LocalDate impactStartDate = LocalDate.now();
+        if (timePeriodInDays == 7) {
+            impactStartDate = today.minusDays(7);
+        } else if (timePeriodInDays == 30) {
+            impactStartDate = today.minusMonths(1);
+        } else if (timePeriodInDays == 365) {
+            impactStartDate = today.minusYears(1);
+        }
+        LocalDate startCounter = LocalDate.now();
+        LocalDate endCounter = LocalDate.now();
+        long daysCommitted = 0;
+
+        //if start date is before our counter starts:
+        //set start date to our impactStartDate
+        if (commitment.getStartDate().isBefore(impactStartDate)) {
+            startCounter = impactStartDate;
+        }
+        //if start date is after our counter starts:
+        //use commitment start date
+        else if (commitment.getStartDate().isEqual(impactStartDate) || commitment.getStartDate().isAfter(impactStartDate)) {
+            startCounter = commitment.getStartDate();
+        }
+        //if end date is null:
+        //use today as end date
+        if (commitment.getEndDate() == null) {
+            daysCommitted = DAYS.between(startCounter, today);
+        }
+        //if end date is inside our counter:
+        //use actual commitment end date
+        else if (commitment.getEndDate().isEqual(impactStartDate) || commitment.getEndDate().isAfter(impactStartDate)) {
+            daysCommitted = DAYS.between(startCounter, commitment.getEndDate());
+        }
+        //if end date is before our counter:
+        //completely ignore this commitment
+        else if (commitment.getEndDate().isBefore(impactStartDate)) {
+            daysCommitted = 0;
+        }
+        return daysCommitted;
+    }
+
 }

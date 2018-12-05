@@ -69,19 +69,19 @@ public class StatisticsServiceTest {
         statisticsService = new StatisticsService(impactService,commitmentService);
     }
 
-    @Test
-    public void whenGettingTotalImpact_shouldCalculateTotalImpact () {
+   @Test
+   public void whenGettingTotalImpact_shouldCalculateTotalImpact () {
 
-        when(commitmentService.getCommitmentsFromUserId(VALID_USER_ID)).thenReturn(Arrays.asList(commitment1, commitment2));
-        when(impactService.getImpactsWithAveragesFromReductionId(VALID_REDUCTION_ID)).thenReturn(Arrays.asList(impact1));
-        when(impactService.getImpactsWithAveragesFromReductionId(SECOND_VALID_REDUCTION_ID)).thenReturn(Arrays.asList(impact2));
+       when(commitmentService.getCommitmentsFromUserId(VALID_USER_ID)).thenReturn(Arrays.asList(commitment1, commitment2));
+       when(impactService.getImpactsWithAveragesFromReductionId(VALID_REDUCTION_ID)).thenReturn(Arrays.asList(impact1));
+       when(impactService.getImpactsWithAveragesFromReductionId(SECOND_VALID_REDUCTION_ID)).thenReturn(Arrays.asList(impact2));
 
-        Statistic totalImpact = statisticsService.getTotalImpact(VALID_USER_ID);
+       Statistic totalImpact = statisticsService.getImpactForTimePeriod(VALID_USER_ID,0);
 
-        assertThat(totalImpact.getTonsOfCo2()).isEqualTo(VALID_IMPACT_PER_UNIT*VALID_AVERAGE_PER_DAY);
-        assertThat(totalImpact.getGallonsOfWater()).isEqualTo(SECOND_VALID_IMPACT_PER_UNIT*SECOND_VALID_AVERAGE_PER_DAY);
+       assertThat(totalImpact.getTonsOfCo2()).isEqualTo(VALID_IMPACT_PER_UNIT*VALID_AVERAGE_PER_DAY);
+       assertThat(totalImpact.getGallonsOfWater()).isEqualTo(SECOND_VALID_IMPACT_PER_UNIT*SECOND_VALID_AVERAGE_PER_DAY);
 
-    }
+   }
 
 
     @Test
