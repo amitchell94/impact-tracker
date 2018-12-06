@@ -2,7 +2,6 @@ package com.codingnomads.impacttracker.logic;
 
 import com.codingnomads.impacttracker.logic.commitment.Commitment;
 import com.codingnomads.impacttracker.logic.commitment.CommitmentService;
-import com.codingnomads.impacttracker.logic.impact.Impact;
 import com.codingnomads.impacttracker.logic.impact.ImpactService;
 import com.codingnomads.impacttracker.logic.impact.ImpactWithAverage;
 import org.junit.Before;

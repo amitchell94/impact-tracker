@@ -1,6 +1,5 @@
 package com.codingnomads.impacttracker.presentation;
 
-import com.codingnomads.impacttracker.logic.Statistic;
 import com.codingnomads.impacttracker.logic.StatisticsService;
 import com.codingnomads.impacttracker.logic.commitment.Commitment;
 import com.codingnomads.impacttracker.logic.commitment.CommitmentService;

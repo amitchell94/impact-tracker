@@ -2,6 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <div th:replace="fragments/header :: header"></div>
+    <script src="/js/main.js"></script>
 </head>
 <body>
 <div th:replace="fragments/impact-navbar :: impact-navbar"/>
@@ -22,13 +23,19 @@
         <div class="form-group row">
             <label for="startdate" class="col-sm-5 col-form-label">from</label>
             <div class="col-sm-7">
-                <input type="date" class="form-control" id="startdate" placeholder="Date" th:field="*{startDate}">
+                <input type="date" class="form-control" id="startdate" placeholder="Date" onblur="dateCheck()" th:field="*{startDate}">
+            </div>
+        </div>
+        <div class="form-group row" id="end-date-row" hidden="hidden">
+            <label for="enddate" class="col-sm-5 col-form-label">until</label>
+            <div class="col-sm-7">
+                <input type="date" class="form-control" id="enddate" placeholder="Date" onblur="dateCheck()" th:field="*{endDate}">
             </div>
         </div>
         <div class="form-group row">
-            <label for="enddate" class="col-sm-5 col-form-label">until</label>
-            <div class="col-sm-7">
-                <input type="date" class="form-control" id="enddate" placeholder="Date" th:field="*{endDate}">
+            <label for="ongoing" class="col-sm-9 col-form-check-label" >This is an ongoing commitment</label>
+            <div class="col-sm-3 form-check">
+                <input class="form-check-inline w-auto" type="checkbox" id="ongoing" checked="checked" oninput="ongoingCheck()">
             </div>
         </div>
         <div class="form-group row">

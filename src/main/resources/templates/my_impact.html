@@ -2,19 +2,34 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <div th:replace="fragments/header :: header"></div>
+    <script src="/js/main.js"></script>
 </head>
 <body>
 <div th:replace="fragments/impact-navbar :: impact-navbar"/>
 <div class="body">
-    <div th:if="${totalImpact.tonsOfCo2} > 0" class="card">
-        <h2>CO<sub>2</sub> Emissions</h2>
-        <img  style="width: 150px; height: 150px; float: left;" src="/img/co2.png"/>
-        <p class="impact-text">You have saved <span th:text="${totalImpact.tonsOfCo2}"></span> tons of CO<sub>2</sub> from entering the atmosphere!</p>
+    <div style="display: flex; flex-direction: column;   align-items: flex-end;">
+    <form action="#">
+        <div class="form-group row">
+            <select class="form-control form-control-md w-auto" id="reduction" onchange="impactTime()" >
+                <option th:attrappend="selected=${#httpServletRequest.getRequestURI() == '/impacts' ? 'selected':null}" value="total">Total Impact</option>
+                <option th:attrappend="selected=${#httpServletRequest.getRequestURI() == '/impacts/week' ? 'selected':null}" value="week">Last Week</option>
+                <option th:attrappend="selected=${#httpServletRequest.getRequestURI() == '/impacts/month' ? 'selected':null}" value="month">Last Month</option>
+                <option th:attrappend="selected=${#httpServletRequest.getRequestURI() == '/impacts/year' ? 'selected':null}" value="year">Last Year</option>
+            </select>
+        </div>
+    </form>
     </div>
-    <div th:if="${totalImpact.gallonsOfWater} > 0" class="card">
+    <div th:if="${totalImpact.tonsOfCo2} > 0" class="card impact-card" style="background-image: url('/img/co2-card-background.jpg');">
+        <h2>CO<sub>2</sub> Emissions</h2>
+        <p>You have saved <span th:text="${totalImpact.tonsOfCo2}"></span> tons of CO<sub>2</sub> from entering the atmosphere!</p>
+    </div>
+    <div th:if="${totalImpact.gallonsOfWater} > 0" class="card impact-card" style="background-image: url('/img/water-card-background.jpg');">
         <h2>Water Usage</h2>
-        <img  style="width: 150px; float: left;" src="/img/water.png"/>
-        <p class="impact-text">You have saved <span th:text="${totalImpact.gallonsOfWater}"></span> gallons of water from being wasted!</p>
+        <p>You have saved <span th:text="${totalImpact.gallonsOfWater}"></span> gallons of water from being wasted!</p>
+    </div>
+    <div th:if="${totalImpact.gallonsOfWater} <= 0 and ${totalImpact.tonsOfCo2} <= 0  " class="card impact-card">
+        <h2>You don't have any commitments!</h2>
+        <p>Click <a href="/addcommitment">here</a> to add a new commitment</p>
     </div>
 </div>
 </body>

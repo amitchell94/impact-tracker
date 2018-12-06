@@ -18,4 +18,25 @@ public class ImpactController {
         modelAndView.addObject("totalImpact", statisticsService.getImpactForTimePeriod(1, 0));
         return modelAndView;
     }
+
+    @GetMapping("/impacts/week")
+    public ModelAndView myImpactWeek(ModelAndView modelAndView) {
+        modelAndView.setViewName("my_impact");
+        modelAndView.addObject("totalImpact", statisticsService.getImpactForTimePeriod(1,7));
+        return modelAndView;
+    }
+
+    @GetMapping("/impacts/month")
+    public ModelAndView myImpactMonth(ModelAndView modelAndView) {
+        modelAndView.setViewName("my_impact");
+        modelAndView.addObject("totalImpact", statisticsService.getImpactForTimePeriod(1,30));
+        return modelAndView;
+    }
+
+    @GetMapping("/impacts/year")
+    public ModelAndView myImpactYear(ModelAndView modelAndView) {
+        modelAndView.setViewName("my_impact");
+        modelAndView.addObject("totalImpact", statisticsService.getImpactForTimePeriod(1,365));
+        return modelAndView;
+    }
 }

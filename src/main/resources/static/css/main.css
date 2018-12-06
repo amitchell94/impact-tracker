@@ -11,18 +11,38 @@
     padding: 35px;
 }
 
-.card {
-    background-color: white;
-    padding: 20px;
-    margin-top: 20px;
-}
-
 .body {
     font-family: Arial;
     padding: 20px;
     background: #ffffff;
 }
 
-.impact-text {
-    font-size: 18pt;
+.impact-card {
+    background-color: steelblue;
+    padding: 20px;
+    margin-top: 20px;
+    background-position: center;
+    height: 250px;
 }
+
+.impact-card h2 {
+    color: #ffffff;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: auto;
+    text-shadow: black 2px 2px;
+}
+
+.impact-card p {
+    font-size: 18pt;
+    color: #ffffff;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: auto;
+    text-shadow: black 2px 2px;
+}
+
+.impact-card a {
+    color: #eeeeee;
+}
+
