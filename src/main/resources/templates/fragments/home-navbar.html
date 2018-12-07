@@ -16,6 +16,12 @@
                     <a class="nav-item nav-link"
                        th:classappend="${#httpServletRequest.getRequestURI() == '/commitments' ? 'active':''}"
                        href="/commitments">Commitments</a>
+                    <a class="nav-item nav-link"
+                       th:classappend="${#httpServletRequest.getRequestURI() == '/login' ? 'active':''}"
+                       href="/login">Log in</a>
+                    <a class="nav-item nav-link"
+                       th:classappend="${#httpServletRequest.getRequestURI() == '/registration' ? 'active':''}"
+                       href="/registration">Create an account</a>
 
                 </div>
             </div>
