@@ -16,7 +16,11 @@ public class CommitmentRowMapper implements RowMapper<Commitment> {
         commitment.setUserId(rs.getInt("c_u_id"));
         commitment.setReductionId(rs.getInt("c_r_id"));
         commitment.setStartDate(rs.getDate("c_start_date").toLocalDate());
-        commitment.setEndDate(rs.getDate("c_end_date").toLocalDate());
+        if (rs.getDate("c_end_date") == null) {
+            commitment.setEndDate(null);
+        } else {
+            commitment.setEndDate(rs.getDate("c_end_date").toLocalDate());
+        }
         commitment.setAmountToReduceBy(rs.getInt("c_amount"));
 
         return commitment;

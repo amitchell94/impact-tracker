@@ -42,7 +42,11 @@ public class StatisticsService {
         for (Commitment commitment : commitments) {
             long daysCommitted;
             if (timePeriodInDays == 0) {
-                daysCommitted = DAYS.between(commitment.getStartDate(), commitment.getEndDate());
+                if (commitment.getEndDate() == null) {
+                    daysCommitted = DAYS.between(commitment.getStartDate(), LocalDate.now());
+                } else {
+                    daysCommitted = DAYS.between(commitment.getStartDate(), commitment.getEndDate());
+                }
             } else {
                 daysCommitted = setDaysCommitted(commitment, timePeriodInDays);
             }
