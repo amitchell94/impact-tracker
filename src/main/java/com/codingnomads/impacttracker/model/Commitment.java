@@ -1,4 +1,4 @@
-package com.codingnomads.impacttracker.logic.commitment;
+package com.codingnomads.impacttracker.model;
 
 import org.springframework.format.annotation.DateTimeFormat;
 

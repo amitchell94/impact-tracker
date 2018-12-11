@@ -1,4 +1,4 @@
-package com.codingnomads.impacttracker.logic;
+package com.codingnomads.impacttracker.model;
 
 public class Statistic {
     private double tonsOfCo2;

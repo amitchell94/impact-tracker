@@ -1,4 +1,6 @@
-package com.codingnomads.impacttracker.logic.impact;
+package com.codingnomads.impacttracker.model;
+
+import com.codingnomads.impacttracker.model.Impact;
 
 public class ImpactWithAverage {
 

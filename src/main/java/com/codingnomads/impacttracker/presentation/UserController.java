@@ -1,7 +1,7 @@
 package com.codingnomads.impacttracker.presentation;
 
-import com.codingnomads.impacttracker.logic.User;
-import com.codingnomads.impacttracker.logic.UserService;
+import com.codingnomads.impacttracker.model.User;
+import com.codingnomads.impacttracker.logic.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;

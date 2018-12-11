@@ -1,5 +1,6 @@
-package com.codingnomads.impacttracker.logic;
+package com.codingnomads.impacttracker.logic.reduction;
 
+import com.codingnomads.impacttracker.model.Reduction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

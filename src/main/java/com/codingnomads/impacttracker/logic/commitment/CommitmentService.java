@@ -1,5 +1,6 @@
 package com.codingnomads.impacttracker.logic.commitment;
 
+import com.codingnomads.impacttracker.model.Commitment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

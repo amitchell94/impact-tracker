@@ -1,10 +1,10 @@
-package com.codingnomads.impacttracker.logic;
+package com.codingnomads.impacttracker.model;
 
 public class Reduction {
 
-    Integer id;
-    String reduction;
-    Double averagePerDay;
+    private Integer id;
+    private String reduction;
+    private Double averagePerDay;
 
     public Integer getId() {
         return id;

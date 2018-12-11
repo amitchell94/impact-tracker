@@ -1,7 +1,10 @@
 package com.codingnomads.impacttracker.logic;
 
-import com.codingnomads.impacttracker.logic.RoleRepository;
-import com.codingnomads.impacttracker.logic.UserRepository;
+import com.codingnomads.impacttracker.logic.user.RoleRepository;
+import com.codingnomads.impacttracker.model.User;
+import com.codingnomads.impacttracker.logic.user.UserRepository;
+import com.codingnomads.impacttracker.logic.user.UserRoleRepository;
+import com.codingnomads.impacttracker.logic.user.UserService;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;

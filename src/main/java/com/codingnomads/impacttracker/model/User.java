@@ -1,4 +1,4 @@
-package com.codingnomads.impacttracker.logic;
+package com.codingnomads.impacttracker.model;
 
 import org.hibernate.validator.constraints.Length;
 

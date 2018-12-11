@@ -1,7 +1,7 @@
 package com.codingnomads.impacttracker.logic;
 
-import com.codingnomads.impacttracker.data.MySqlCommitmentRepository;
-import com.codingnomads.impacttracker.logic.commitment.Commitment;
+import com.codingnomads.impacttracker.data.repositories.MySqlCommitmentRepository;
+import com.codingnomads.impacttracker.model.Commitment;
 import com.codingnomads.impacttracker.logic.commitment.CommitmentService;
 import org.junit.Before;
 import org.junit.Test;

@@ -1,9 +1,10 @@
-package com.codingnomads.impacttracker.logic;
+package com.codingnomads.impacttracker.logic.statistic;
 
-import com.codingnomads.impacttracker.logic.commitment.Commitment;
+import com.codingnomads.impacttracker.model.Commitment;
 import com.codingnomads.impacttracker.logic.commitment.CommitmentService;
 import com.codingnomads.impacttracker.logic.impact.ImpactService;
-import com.codingnomads.impacttracker.logic.impact.ImpactWithAverage;
+import com.codingnomads.impacttracker.model.ImpactWithAverage;
+import com.codingnomads.impacttracker.model.Statistic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

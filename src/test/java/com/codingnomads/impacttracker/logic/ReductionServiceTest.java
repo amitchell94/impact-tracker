@@ -1,6 +1,8 @@
 package com.codingnomads.impacttracker.logic;
 
-import com.codingnomads.impacttracker.data.MySqlReductionRepository;
+import com.codingnomads.impacttracker.data.repositories.MySqlReductionRepository;
+import com.codingnomads.impacttracker.model.Reduction;
+import com.codingnomads.impacttracker.logic.reduction.ReductionService;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -19,7 +21,7 @@ public class ReductionServiceTest {
     private Reduction reduction2;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         mySqlReductionRepositoryMock = Mockito.mock(MySqlReductionRepository.class);
         reductionService =new ReductionService(mySqlReductionRepositoryMock);
 

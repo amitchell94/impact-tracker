@@ -1,7 +1,8 @@
-package com.codingnomads.impacttracker.data;
+package com.codingnomads.impacttracker.data.repositories;
 
 
-import com.codingnomads.impacttracker.logic.commitment.Commitment;
+import com.codingnomads.impacttracker.data.rowmappers.CommitmentRowMapper;
+import com.codingnomads.impacttracker.model.Commitment;
 import com.codingnomads.impacttracker.logic.commitment.CommitmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;

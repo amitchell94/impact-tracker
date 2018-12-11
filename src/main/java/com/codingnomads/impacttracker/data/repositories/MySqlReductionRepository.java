@@ -1,12 +1,10 @@
-package com.codingnomads.impacttracker.data;
+package com.codingnomads.impacttracker.data.repositories;
 
-import com.codingnomads.impacttracker.logic.Reduction;
-import com.codingnomads.impacttracker.logic.ReductionRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.codingnomads.impacttracker.data.rowmappers.ReductionRowMapper;
+import com.codingnomads.impacttracker.model.Reduction;
+import com.codingnomads.impacttracker.logic.reduction.ReductionRepository;
 import org.springframework.jdbc.core.namedparam.EmptySqlParameterSource;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

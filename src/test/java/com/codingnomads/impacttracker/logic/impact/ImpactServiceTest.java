@@ -1,6 +1,8 @@
 package com.codingnomads.impacttracker.logic.impact;
 
-import com.codingnomads.impacttracker.data.MySqlImpactRepository;
+import com.codingnomads.impacttracker.data.repositories.MySqlImpactRepository;
+import com.codingnomads.impacttracker.model.Impact;
+import com.codingnomads.impacttracker.model.ImpactWithAverage;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -15,14 +17,14 @@ import static org.mockito.Mockito.when;
 public class ImpactServiceTest {
 
     private static final int VALID_REDUCTION_ID = 1;
-    ImpactRepository mockImpactRepository;
-    ImpactService impactService;
+    private ImpactRepository mockImpactRepository;
+    private ImpactService impactService;
 
-    ImpactWithAverage impactWithAverage1;
-    ImpactWithAverage impactWithAverage2;
+    private ImpactWithAverage impactWithAverage1;
+    private ImpactWithAverage impactWithAverage2;
 
-    Impact impact1;
-    Impact impact2;
+    private Impact impact1;
+    private Impact impact2;
 
     @Before
     public void setUp() throws Exception {

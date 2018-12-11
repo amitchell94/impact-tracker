@@ -1,10 +1,8 @@
 package com.codingnomads.impacttracker.presentation;
 
-import com.codingnomads.impacttracker.logic.Reduction;
-import com.codingnomads.impacttracker.logic.ReductionService;
-import com.codingnomads.impacttracker.logic.Statistic;
-import com.codingnomads.impacttracker.logic.StatisticsService;
-import com.codingnomads.impacttracker.logic.commitment.Commitment;
+import com.codingnomads.impacttracker.logic.reduction.ReductionService;
+import com.codingnomads.impacttracker.logic.statistic.StatisticsService;
+import com.codingnomads.impacttracker.model.Commitment;
 import com.codingnomads.impacttracker.logic.commitment.CommitmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

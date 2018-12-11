@@ -1,7 +1,7 @@
-package com.codingnomads.impacttracker.logic;
+package com.codingnomads.impacttracker.logic.user;
 
-import com.codingnomads.impacttracker.logic.Role;
-import com.codingnomads.impacttracker.logic.RoleRepository;
+import com.codingnomads.impacttracker.model.Role;
+import com.codingnomads.impacttracker.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;

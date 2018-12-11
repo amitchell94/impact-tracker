@@ -1,7 +1,6 @@
-package com.codingnomads.impacttracker.logic;
+package com.codingnomads.impacttracker.logic.user;
 
-import com.codingnomads.impacttracker.logic.User;
-import org.springframework.boot.autoconfigure.security.SecurityProperties;
+import com.codingnomads.impacttracker.model.User;
 import org.springframework.stereotype.Repository;
 
 @Repository

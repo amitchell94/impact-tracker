@@ -1,6 +1,6 @@
-package com.codingnomads.impacttracker.data;
+package com.codingnomads.impacttracker.data.repositories;
 
-import com.codingnomads.impacttracker.logic.UserRoleRepository;
+import com.codingnomads.impacttracker.logic.user.UserRoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;

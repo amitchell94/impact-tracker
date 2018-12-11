@@ -1,7 +1,8 @@
-package com.codingnomads.impacttracker.data;
+package com.codingnomads.impacttracker.data.repositories;
 
-import com.codingnomads.impacttracker.logic.User;
-import com.codingnomads.impacttracker.logic.UserRepository;
+import com.codingnomads.impacttracker.data.rowmappers.UserRowMapper;
+import com.codingnomads.impacttracker.model.User;
+import com.codingnomads.impacttracker.logic.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.dao.EmptyResultDataAccessException;

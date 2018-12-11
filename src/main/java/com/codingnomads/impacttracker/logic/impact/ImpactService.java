@@ -1,5 +1,7 @@
 package com.codingnomads.impacttracker.logic.impact;
 
+import com.codingnomads.impacttracker.model.Impact;
+import com.codingnomads.impacttracker.model.ImpactWithAverage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

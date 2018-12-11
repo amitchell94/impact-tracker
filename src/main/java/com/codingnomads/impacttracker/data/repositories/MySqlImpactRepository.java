@@ -1,7 +1,9 @@
-package com.codingnomads.impacttracker.data;
+package com.codingnomads.impacttracker.data.repositories;
 
-import com.codingnomads.impacttracker.logic.impact.ImpactWithAverage;
-import com.codingnomads.impacttracker.logic.impact.Impact;
+import com.codingnomads.impacttracker.data.rowmappers.ImpactRowMapper;
+import com.codingnomads.impacttracker.data.rowmappers.ImpactWithAveragesRowMapper;
+import com.codingnomads.impacttracker.model.ImpactWithAverage;
+import com.codingnomads.impacttracker.model.Impact;
 import com.codingnomads.impacttracker.logic.impact.ImpactRepository;
 import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;

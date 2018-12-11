@@ -1,9 +1,11 @@
 package com.codingnomads.impacttracker.logic;
 
-import com.codingnomads.impacttracker.logic.commitment.Commitment;
+import com.codingnomads.impacttracker.model.Commitment;
 import com.codingnomads.impacttracker.logic.commitment.CommitmentService;
 import com.codingnomads.impacttracker.logic.impact.ImpactService;
-import com.codingnomads.impacttracker.logic.impact.ImpactWithAverage;
+import com.codingnomads.impacttracker.model.ImpactWithAverage;
+import com.codingnomads.impacttracker.model.Statistic;
+import com.codingnomads.impacttracker.logic.statistic.StatisticsService;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -41,7 +43,7 @@ public class StatisticsServiceTest {
     private CommitmentService commitmentService;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
 
         commitment1 = new Commitment();
         commitment1.setReductionId(VALID_REDUCTION_ID);

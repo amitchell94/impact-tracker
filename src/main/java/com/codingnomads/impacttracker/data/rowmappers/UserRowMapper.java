@@ -1,6 +1,6 @@
-package com.codingnomads.impacttracker.data;
+package com.codingnomads.impacttracker.data.rowmappers;
 
-import com.codingnomads.impacttracker.logic.User;
+import com.codingnomads.impacttracker.model.User;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;

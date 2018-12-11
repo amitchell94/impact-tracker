@@ -1,4 +1,4 @@
-package com.codingnomads.impacttracker.logic.impact;
+package com.codingnomads.impacttracker.model;
 
 public class Impact {
     private int id;
