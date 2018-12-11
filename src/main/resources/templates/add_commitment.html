@@ -13,10 +13,7 @@
             <label for="reduction" class="col-sm-5 col-form-label">I am committed to </label>
             <div class="col-sm-7">
                 <select class="form-control form-control-md " id="reduction" th:field="*{reductionId}">
-                    <option value="1">Veganism</option>
-                    <option value="2">Vegetarianism</option>
-                    <option value="3">Not driving</option>
-                    <option value="4">Not using palm oil</option>
+                    <option th:each="reduction : ${reductionList}" th:value="${reduction.id}"th:text="${reduction.reduction}"/>
                 </select>
             </div>
         </div>

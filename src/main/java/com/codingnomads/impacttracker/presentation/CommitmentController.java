@@ -1,5 +1,8 @@
 package com.codingnomads.impacttracker.presentation;
 
+import com.codingnomads.impacttracker.logic.Reduction;
+import com.codingnomads.impacttracker.logic.ReductionService;
+import com.codingnomads.impacttracker.logic.Statistic;
 import com.codingnomads.impacttracker.logic.StatisticsService;
 import com.codingnomads.impacttracker.logic.commitment.Commitment;
 import com.codingnomads.impacttracker.logic.commitment.CommitmentService;
@@ -16,6 +19,9 @@ public class CommitmentController {
 
     @Autowired
     private CommitmentService commitmentService;
+
+    @Autowired
+    private ReductionService reductionService;
 
     @Autowired
     private StatisticsService statisticsService;
@@ -35,6 +41,7 @@ public class CommitmentController {
 
         modelAndView.setViewName("add_commitment");
         modelAndView.addObject("commitment",commitment);
+        modelAndView.addObject("reductionList",reductionService.getAllReductions());
         return modelAndView;
     }
 
