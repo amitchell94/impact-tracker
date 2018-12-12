@@ -2,6 +2,7 @@ package com.codingnomads.impacttracker.presentation;
 
 import com.codingnomads.impacttracker.logic.reduction.ReductionService;
 import com.codingnomads.impacttracker.logic.statistic.StatisticsService;
+import com.codingnomads.impacttracker.logic.user.UserService;
 import com.codingnomads.impacttracker.model.Commitment;
 import com.codingnomads.impacttracker.logic.commitment.CommitmentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,11 +25,15 @@ public class CommitmentController {
     @Autowired
     private StatisticsService statisticsService;
 
+    @Autowired
+    private UserService userService;
+
     //add variable for username once security is added
 
     @GetMapping("/commitments")
     public ModelAndView allCommitments(ModelAndView modelAndView){
-        modelAndView.addObject("commitmentlist", commitmentService.getCommitmentsFromUserId(1));
+        modelAndView.addObject("commitmentlist",
+                commitmentService.getCommitmentsFromUserId(userService.getCurrentUserId()));
         modelAndView.setViewName("/commitments");
         return modelAndView;
     }
@@ -45,7 +50,7 @@ public class CommitmentController {
 
     @PostMapping("/addcommitment")
     public ModelAndView commitment(@ModelAttribute Commitment commitment, ModelAndView modelAndView) {
-        commitment.setUserId(1);
+        commitment.setUserId(userService.getCurrentUserId());
 
         Commitment savedCommitment = commitmentService.save(commitment);
         modelAndView.setViewName("add_commitment_complete");
