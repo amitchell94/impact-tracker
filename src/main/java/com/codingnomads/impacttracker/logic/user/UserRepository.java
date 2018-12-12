@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserRepository {
 
-    User getUserByUserNameAndPassword(String username, String password);
+    User getUserByUserName(String username);
 
     User save(User user);
 }

@@ -29,11 +29,10 @@ public class MySqlUserRepository implements UserRepository {
     }
 
     @Override
-    public User getUserByUserNameAndPassword(String username, String password) {
-        String query = "SELECT *" + " FROM " + TABLE_NAME + " WHERE u_name = :username and u_password = :password";
+    public User getUserByUserName(String username) {
+        String query = "SELECT *" + " FROM " + TABLE_NAME + " WHERE u_name = :username";
         SqlParameterSource namedParameters = new MapSqlParameterSource()
-                .addValue("username", username)
-                .addValue("password", password);
+                .addValue("username", username);
         try {
             return jdbcTemplate.queryForObject(query, namedParameters, rowMapper);
         } catch (

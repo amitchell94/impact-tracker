@@ -26,18 +26,18 @@ public class UserService {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
-    public User getUserByUserNameAndPassword(String username, String password) {
+    public User getUserByUserName(String username) {
 
-        return userRepository.getUserByUserNameAndPassword(username, password);
+        return userRepository.getUserByUserName(username);
     }
 
     public User validateUser(User user) {
 
-        User userNameAndPassword = getUserByUserNameAndPassword(user.getUsername(), user.getPassword());
+        User userName = getUserByUserName(user.getUsername());
 
-        if (userNameAndPassword != null &&
-                bCryptPasswordEncoder.matches(user.getPassword(), userNameAndPassword.getPassword())) {
-            return userNameAndPassword;
+        if (userName != null &&
+                bCryptPasswordEncoder.matches(user.getPassword(), userName.getPassword())) {
+            return userName;
         } else {
             return null;
         }

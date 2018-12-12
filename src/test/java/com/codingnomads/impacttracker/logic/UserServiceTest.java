@@ -30,16 +30,15 @@ public class UserServiceTest {
 
         user = new User();
         user.setUsername("testuser");
-        user.setPassword("password7");
     }
 
     @Test
-    public void whenUserServiceGetUserByUserNameAndPassword_returnUserByUserNameAndPassword() {
+    public void whenUserServiceGetUserByUserName_returnUserByUserName() {
 
-        Mockito.when(userService.getUserByUserNameAndPassword(user.getUsername(), user.getPassword())).thenReturn(user);
-        User userByUserNameAndPassword = userService.getUserByUserNameAndPassword("testuser", "password7");
+        Mockito.when(userService.getUserByUserName(user.getUsername())).thenReturn(user);
+        User userByUserName = userService.getUserByUserName("testuser");
 
-        assertThat(userByUserNameAndPassword).isEqualTo(user);
+        assertThat(userByUserName).isEqualTo(user);
 
         @TestConfiguration
         class UserServiceConfiguration {
