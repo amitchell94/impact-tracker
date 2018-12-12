@@ -33,7 +33,7 @@ To get the development environment up and running, you will first need to create
 
 This can be achieved by either importing the database schema, or manually using the terminal.
 #### Setting up database by importing schema
-Download the schema [2018_11_28_impact_tracker_initial.sql](/database/2018_11_28_impact_tracker_initial.sql)
+Download the schema [2018-11-28_impact_tracker_initial.sql](/database/2018-11-28_impact_tracker_initial.sql)
 
 Import the schema into your MySQL server.
 
