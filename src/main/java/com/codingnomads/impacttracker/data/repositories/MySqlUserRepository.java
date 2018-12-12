@@ -51,4 +51,3 @@ public class MySqlUserRepository implements UserRepository {
         return user;
     }
 }
-

@@ -51,4 +51,15 @@ public class UserService {
         User savedUser = userRepository.save(user);
         userRoleRepository.addUserRoleLink(savedUser.getId(), userRole.getId());
     }
+
+    public Boolean checkCredentials(String userName, String password) {
+        User thisUser = userRepository.getUserByUserName(userName);
+        boolean passwordMatch = bCryptPasswordEncoder.matches(password, thisUser.getPassword());
+        if(passwordMatch){
+            return true;
+        }else{
+            return false;
+        }
+
+    }
 }
