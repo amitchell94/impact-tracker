@@ -14,6 +14,7 @@ public class ReductionRowMapper implements RowMapper<Reduction> {
         reduction.setId(rs.getInt("r_id"));
         reduction.setReduction(rs.getString("r_reduction"));
         reduction.setAveragePerDay(rs.getDouble("r_average_per_day"));
+        reduction.setUnit(rs.getString("r_unit"));
         return reduction;
     }
 }

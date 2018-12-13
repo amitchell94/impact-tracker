@@ -1,8 +1,8 @@
 package com.codingnomads.impacttracker.logic.statistic;
 
-import com.codingnomads.impacttracker.model.Commitment;
 import com.codingnomads.impacttracker.logic.commitment.CommitmentService;
 import com.codingnomads.impacttracker.logic.impact.ImpactService;
+import com.codingnomads.impacttracker.model.Commitment;
 import com.codingnomads.impacttracker.model.ImpactWithAverage;
 import com.codingnomads.impacttracker.model.Statistic;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,8 +58,8 @@ public class StatisticsService {
                 reductionImpactMap.put(reductionId,
                         impactService.getImpactsWithAveragesFromReductionId(reductionId));
             }
-
-            Statistic impactPerDay = getImpactPerDay(reductionImpactMap.get(reductionId));
+            Statistic impactPerDay = getImpactPerDay(reductionImpactMap.get(reductionId),
+                    commitment.getAmountToReduceBy());
 
             impactInTimePeriod.setTonsOfCo2(impactInTimePeriod.getTonsOfCo2() + (impactPerDay.getTonsOfCo2() * daysCommitted));
 
@@ -71,16 +71,24 @@ public class StatisticsService {
         return impactInTimePeriod;
     }
 
-    private Statistic getImpactPerDay(List<ImpactWithAverage> impacts) {
+    private Statistic getImpactPerDay(List<ImpactWithAverage> impacts, Integer amountCommitted) {
         Statistic impactPerDay = new Statistic();
 
         for (ImpactWithAverage impact : impacts) {
             switch (impact.getImpact().getImpactType()) {
                 case "water use":
-                    impactPerDay.setGallonsOfWater((long) (impact.getImpact().getImpactPerUnit() * impact.getAveragePerDay()));
+                    if (amountCommitted ==  null || amountCommitted == 0) {
+                        impactPerDay.setGallonsOfWater((long) (impact.getImpact().getImpactPerUnit() * impact.getAveragePerDay()));
+                    } else {
+                        impactPerDay.setGallonsOfWater((long) (impact.getImpact().getImpactPerUnit() * amountCommitted));
+                    }
                     break;
                 case "co2 emissions":
-                    impactPerDay.setTonsOfCo2(impact.getImpact().getImpactPerUnit() * impact.getAveragePerDay());
+                    if (amountCommitted ==  null || amountCommitted == 0) {
+                        impactPerDay.setTonsOfCo2(impact.getImpact().getImpactPerUnit() * impact.getAveragePerDay());
+                    } else {
+                        impactPerDay.setTonsOfCo2(impact.getImpact().getImpactPerUnit() * amountCommitted);
+                    }
                     break;
             }
         }
@@ -90,44 +98,30 @@ public class StatisticsService {
     private long setDaysCommitted(Commitment commitment, int timePeriodInDays) {
 
         LocalDate today = LocalDate.now();
-        LocalDate impactStartDate = LocalDate.now();
+        LocalDate impactPeriodStartDate = LocalDate.now();
         if (timePeriodInDays == 7) {
-            impactStartDate = today.minusDays(7);
+            impactPeriodStartDate = today.minusDays(7);
         } else if (timePeriodInDays == 30) {
-            impactStartDate = today.minusMonths(1);
+            impactPeriodStartDate = today.minusMonths(1);
         } else if (timePeriodInDays == 365) {
-            impactStartDate = today.minusYears(1);
+            impactPeriodStartDate = today.minusYears(1);
         }
-        LocalDate startCounter = LocalDate.now();
-        LocalDate endCounter = LocalDate.now();
-        long daysCommitted = 0;
 
-        //if start date is before our counter starts:
-        //set start date to our impactStartDate
-        if (commitment.getStartDate().isBefore(impactStartDate)) {
-            startCounter = impactStartDate;
-        }
-        //if start date is after our counter starts:
-        //use commitment start date
-        else if (commitment.getStartDate().isEqual(impactStartDate) || commitment.getStartDate().isAfter(impactStartDate)) {
+        LocalDate startCounter;
+
+        if (commitment.getStartDate().isBefore(impactPeriodStartDate)) {
+            startCounter = impactPeriodStartDate;
+        } else {
             startCounter = commitment.getStartDate();
         }
-        //if end date is null:
-        //use today as end date
+
         if (commitment.getEndDate() == null) {
-            daysCommitted = DAYS.between(startCounter, today);
+            return DAYS.between(startCounter, today);
+        } else if (!commitment.getEndDate().isBefore(impactPeriodStartDate)) {
+            return DAYS.between(startCounter, commitment.getEndDate());
         }
-        //if end date is inside our counter:
-        //use actual commitment end date
-        else if (commitment.getEndDate().isEqual(impactStartDate) || commitment.getEndDate().isAfter(impactStartDate)) {
-            daysCommitted = DAYS.between(startCounter, commitment.getEndDate());
-        }
-        //if end date is before our counter:
-        //completely ignore this commitment
-        else if (commitment.getEndDate().isBefore(impactStartDate)) {
-            daysCommitted = 0;
-        }
-        return daysCommitted;
+
+        return 0;
     }
 
 }

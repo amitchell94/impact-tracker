@@ -5,6 +5,7 @@ public class Reduction {
     private Integer id;
     private String reduction;
     private Double averagePerDay;
+    private String unit;
 
     public Integer getId() {
         return id;
@@ -28,5 +29,13 @@ public class Reduction {
 
     public void setAveragePerDay(Double averagePerDay) {
         this.averagePerDay = averagePerDay;
+    }
+
+    public String getUnit() {
+        return unit;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
     }
 }

@@ -16,7 +16,6 @@ public class ImpactWithAveragesRowMapper implements RowMapper<ImpactWithAverage>
         impactWithAverage.getImpact().setImpactPerUnit(rs.getDouble("i_impact_per_unit"));
         impactWithAverage.getImpact().setImpactUnit(rs.getString("i_impact_unit"));
         impactWithAverage.getImpact().setImpactType(rs.getString("i_impact_type"));
-        impactWithAverage.getImpact().setReductionUnit(rs.getString("i_reduction_unit"));
         impactWithAverage.setAveragePerDay(rs.getDouble("r_average_per_day"));
         return impactWithAverage;
     }

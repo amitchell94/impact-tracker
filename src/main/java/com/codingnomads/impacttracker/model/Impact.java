@@ -6,7 +6,6 @@ public class Impact {
     private double impactPerUnit;
     private String impactUnit;
     private String impactType;
-    private String reductionUnit;
 
     public int getId() {
         return id;
@@ -48,11 +47,4 @@ public class Impact {
         this.impactType = impactType;
     }
 
-    public String getReductionUnit() {
-        return reductionUnit;
-    }
-
-    public void setReductionUnit(String reductionUnit) {
-        this.reductionUnit = reductionUnit;
-    }
 }

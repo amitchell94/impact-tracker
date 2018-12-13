@@ -26,6 +26,38 @@ function dateCheck() {
 
 }
 
+function amountCheck() {
+    var reduction = document.getElementById("reduction");
+    var amountInput = document.getElementById("amountInput");
+    var amountUnit = document.getElementById("unit");
+    var amount = document.getElementById("amount");
+
+    if (reduction.options[reduction.selectedIndex].dataset.average == 1.0) {
+        amountInput.hidden = true;
+        amount.value = '';
+    } else {
+        amountInput.hidden = false;
+        amountUnit.innerText = reduction.options[reduction.selectedIndex].dataset.unit + "/day";
+    }
+}
+
+function averageAmountCheck() {
+    var reduction = document.getElementById("reduction");
+    var amountSelect = document.getElementById("amountselect");
+    var amountInput = document.getElementById("customamount");
+    var amountUnit = document.getElementById("unit");
+    var amount = document.getElementById("amount");
+
+    if (amountSelect.value == 'average') {
+        amountInput.hidden = true;
+        amount.value = '';
+    } else {
+        amountInput.hidden = false;
+        amountUnit.innerText = reduction.options[reduction.selectedIndex].dataset.unit + "/day";
+    }
+}
+
+
 function impactTime() {
 
     var reduction = document.getElementById("reduction");

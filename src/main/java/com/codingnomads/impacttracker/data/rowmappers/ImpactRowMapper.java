@@ -16,7 +16,6 @@ public class ImpactRowMapper implements RowMapper<Impact> {
         impact.setImpactPerUnit(rs.getDouble("i_impact_per_unit"));
         impact.setImpactUnit(rs.getString("i_impact_unit"));
         impact.setImpactType(rs.getString("i_impact_type"));
-        impact.setReductionUnit(rs.getString("i_reduction_unit"));
         return impact;
     }
 }
