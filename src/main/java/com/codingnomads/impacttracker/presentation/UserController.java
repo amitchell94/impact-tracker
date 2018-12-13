@@ -48,7 +48,7 @@ public class UserController {
             modelAndView.setViewName("registration");
         } else {
             userService.saveUser(user);
-            modelAndView.addObject("successMessage", "You are now registered");
+            modelAndView.addObject("successMessage", "You are now registered. Please log in.");
             modelAndView.addObject("user", new User());
             modelAndView.setViewName("registration");
         }

@@ -30,6 +30,7 @@ dependencies {
     implementation('org.springframework.boot:spring-boot-starter-jdbc')
     implementation('org.springframework.boot:spring-boot-starter-security')
     implementation('org.springframework.boot:spring-boot-starter-thymeleaf')
+    compile group: 'org.thymeleaf.extras', name:'thymeleaf-extras-springsecurity5', version: '3.0.4.RELEASE'
     implementation('org.springframework.boot:spring-boot-starter-web')
     implementation group: 'com.h2database', name: 'h2', version: '1.4.197'
     implementation('org.projectlombok:lombok')
