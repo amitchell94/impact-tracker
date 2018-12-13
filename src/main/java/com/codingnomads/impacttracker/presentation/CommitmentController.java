@@ -1,10 +1,12 @@
 package com.codingnomads.impacttracker.presentation;
 
+import com.codingnomads.impacttracker.logic.commitment.CommitmentUtils;
 import com.codingnomads.impacttracker.logic.reduction.ReductionService;
 import com.codingnomads.impacttracker.logic.statistic.StatisticsService;
 import com.codingnomads.impacttracker.logic.user.UserService;
 import com.codingnomads.impacttracker.model.Commitment;
 import com.codingnomads.impacttracker.logic.commitment.CommitmentService;
+import com.codingnomads.impacttracker.model.CommitmentPresentation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,12 +30,15 @@ public class CommitmentController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private CommitmentUtils commitmentUtils;
     //add variable for username once security is added
 
     @GetMapping("/commitments")
     public ModelAndView allCommitments(ModelAndView modelAndView){
         modelAndView.addObject("commitmentlist",
-                commitmentService.getCommitmentsFromUserId(userService.getCurrentUserId()));
+                commitmentUtils.transformCommitmentListToCommitmentPresentationList(
+                        commitmentService.getCommitmentsFromUserId(userService.getCurrentUserId())));
         modelAndView.setViewName("/commitments");
         return modelAndView;
     }
@@ -52,7 +57,8 @@ public class CommitmentController {
     public ModelAndView commitment(@ModelAttribute Commitment commitment, ModelAndView modelAndView) {
         commitment.setUserId(userService.getCurrentUserId());
 
-        Commitment savedCommitment = commitmentService.save(commitment);
+        CommitmentPresentation savedCommitment =
+                commitmentUtils.transformCommitmentToCommitmentPresentation(commitmentService.save(commitment));
         modelAndView.setViewName("add_commitment_complete");
         modelAndView.addObject("savedCommitment", savedCommitment);
         return modelAndView;

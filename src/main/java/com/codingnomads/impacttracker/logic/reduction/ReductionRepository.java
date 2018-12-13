@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface ReductionRepository {
 
-
     List<Reduction> getAllReductions();
+
+    Reduction getReductionById(int id);
 }

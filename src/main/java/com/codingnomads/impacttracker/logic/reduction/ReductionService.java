@@ -20,4 +20,8 @@ public class ReductionService {
         return reductionRepository.getAllReductions();
     }
 
+    public Reduction getReductionById (int id) {
+        return reductionRepository.getReductionById(id);
+    }
+
 }
