@@ -41,16 +41,7 @@ public class StatisticsService {
         Map<Integer, List<ImpactWithAverage>> reductionImpactMap = new HashMap<>();
 
         for (Commitment commitment : commitments) {
-            long daysCommitted;
-            if (timePeriodInDays == 0) {
-                if (commitment.getEndDate() == null) {
-                    daysCommitted = DAYS.between(commitment.getStartDate(), LocalDate.now());
-                } else {
-                    daysCommitted = DAYS.between(commitment.getStartDate(), commitment.getEndDate());
-                }
-            } else {
-                daysCommitted = setDaysCommitted(commitment, timePeriodInDays);
-            }
+            long daysCommitted = setDaysCommitted(commitment, timePeriodInDays);
 
             int reductionId = commitment.getReductionId();
 
@@ -99,7 +90,9 @@ public class StatisticsService {
 
         LocalDate today = LocalDate.now();
         LocalDate impactPeriodStartDate = LocalDate.now();
-        if (timePeriodInDays == 7) {
+        if (timePeriodInDays == 0) {
+            impactPeriodStartDate = LocalDate.MIN;
+        } else if (timePeriodInDays == 7) {
             impactPeriodStartDate = today.minusDays(7);
         } else if (timePeriodInDays == 30) {
             impactPeriodStartDate = today.minusMonths(1);
@@ -109,13 +102,17 @@ public class StatisticsService {
 
         LocalDate startCounter;
 
+        if (commitment.getStartDate().isAfter(today)) {
+            return 0;
+        }
+
         if (commitment.getStartDate().isBefore(impactPeriodStartDate)) {
             startCounter = impactPeriodStartDate;
         } else {
             startCounter = commitment.getStartDate();
         }
 
-        if (commitment.getEndDate() == null) {
+        if (commitment.getEndDate() == null || commitment.getEndDate().isAfter(today)) {
             return DAYS.between(startCounter, today);
         } else if (!commitment.getEndDate().isBefore(impactPeriodStartDate)) {
             return DAYS.between(startCounter, commitment.getEndDate());
