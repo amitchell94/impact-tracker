@@ -13,7 +13,7 @@ xmlns:sec=“http://www.thymeleaf.org/extras/spring-security”>
         <div class="form-group row">
             <label for="reduction" class="col-sm-5 col-form-label">I am committed to </label>
             <div class="col-sm-7">
-                <select class="form-control form-control-md " id="reduction" th:field="*{reductionId}"
+                <select required="required"  class="form-control form-control-md " id="reduction" th:field="*{reductionId}"
                         onchange="amountCheck()">
                     <option th:each="reduction : ${reductionList}" th:value="${reduction.id}"
                             th:text="${reduction.reduction}" th:data-average="${reduction.averagePerDay}"
@@ -44,7 +44,7 @@ xmlns:sec=“http://www.thymeleaf.org/extras/spring-security”>
         <div class="form-group row">
             <label for="startdate" class="col-sm-5 col-form-label">from</label>
             <div class="col-sm-7">
-                <input type="date" class="form-control" id="startdate" placeholder="Date" onblur="dateCheck()"
+                <input required="required" type="date" class="form-control" id="startdate" placeholder="Date" onblur="dateCheck()"
                        th:field="*{startDate}">
             </div>
         </div>

@@ -7,8 +7,10 @@ function ongoingCheck() {
     if (checkBox.checked) {
         dateDiv.hidden = true;
         endDateInput.value = '';
+        endDateInput.required = false;
     } else {
         dateDiv.hidden = false;
+        endDateInput.required = true;
     }
 }
 
@@ -35,9 +37,11 @@ function amountCheck() {
     if (reduction.options[reduction.selectedIndex].dataset.average == 1.0) {
         amountInput.hidden = true;
         amount.value = '';
+        amount.required = false;
     } else {
         amountInput.hidden = false;
         amountUnit.innerText = reduction.options[reduction.selectedIndex].dataset.unit + "/day";
+        amount.required = true;
     }
 }
 
@@ -77,4 +81,3 @@ function impactTime() {
             break;
     }
 }
-
