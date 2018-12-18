@@ -1,6 +1,6 @@
 package com.codingnomads.impacttracker.presentation.api;
 
-import com.codingnomads.impacttracker.logic.JWT.OurTokenService;
+import com.codingnomads.impacttracker.logic.JWT.AuthenticationService;
 import com.codingnomads.impacttracker.logic.statistic.StatisticsService;
 import com.codingnomads.impacttracker.model.Statistic;
 import org.junit.Test;
@@ -33,7 +33,7 @@ public class ImpactApiControllerTest {
     private StatisticsService statisticsService;
 
     @MockBean
-    private OurTokenService ourTokenService;
+    private AuthenticationService authenticationService;
 
     @Test
     public void whenGettingTotalImpactForUserWithValidToken_returnTotalImpactForUser() throws Exception {
@@ -41,9 +41,9 @@ public class ImpactApiControllerTest {
         statistic1.setGallonsOfWater(5);
         statistic1.setTonsOfCo2(1);
 
-        given(statisticsService.getImpactForTimePeriod(1, 0)).willReturn(statistic1);
+        given(statisticsService.getImpactForTimePeriod(0, 0)).willReturn(statistic1);
 
-        mvc.perform(get("/api/impact/total/1?token=1591618460")
+        mvc.perform(get("/api/impact/total/?token=1591618460")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isOk())
@@ -56,9 +56,9 @@ public class ImpactApiControllerTest {
         statistic1.setGallonsOfWater(5);
         statistic1.setTonsOfCo2(1);
 
-        given(statisticsService.getImpactForTimePeriod(1, 7)).willReturn(statistic1);
+        given(statisticsService.getImpactForTimePeriod(0, 7)).willReturn(statistic1);
 
-        mvc.perform(get("/api/impact/week/1?token=1591618460")
+        mvc.perform(get("/api/impact/week/?token=1591618460")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isOk())
@@ -71,9 +71,9 @@ public class ImpactApiControllerTest {
         statistic1.setGallonsOfWater(5);
         statistic1.setTonsOfCo2(1);
 
-        given(statisticsService.getImpactForTimePeriod(1, 30)).willReturn(statistic1);
+        given(statisticsService.getImpactForTimePeriod(0, 30)).willReturn(statistic1);
 
-        mvc.perform(get("/api/impact/month/1?token=1591618460")
+        mvc.perform(get("/api/impact/month/?token=1591618460")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isOk())
@@ -86,9 +86,9 @@ public class ImpactApiControllerTest {
         statistic1.setGallonsOfWater(5);
         statistic1.setTonsOfCo2(1);
 
-        given(statisticsService.getImpactForTimePeriod(1, 365)).willReturn(statistic1);
+        given(statisticsService.getImpactForTimePeriod(0, 365)).willReturn(statistic1);
 
-        mvc.perform(get("/api/impact/year/1?token=1591618460")
+        mvc.perform(get("/api/impact/year/?token=1591618460")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isOk())

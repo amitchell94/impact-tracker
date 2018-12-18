@@ -1,10 +1,9 @@
 package com.codingnomads.impacttracker.presentation.api;
 
+import com.codingnomads.impacttracker.logic.JWT.AuthenticationService;
 import com.codingnomads.impacttracker.logic.JWT.InvalidTokenException;
-import com.codingnomads.impacttracker.logic.JWT.OurTokenService;
 import com.codingnomads.impacttracker.logic.commitment.CommitmentService;
 import com.codingnomads.impacttracker.model.Commitment;
-import org.hamcrest.CoreMatchers;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -14,14 +13,12 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.Arrays;
 import java.util.List;
 
 import static com.codingnomads.impacttracker.presentation.api.ObjectToJsonHelper.asJsonString;
 import static org.hamcrest.CoreMatchers.containsString;
-import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -42,7 +39,7 @@ public class CommitmentApiControllerTest {
     private CommitmentService commitmentService;
 
     @MockBean
-    private OurTokenService ourTokenService;
+    private AuthenticationService authenticationService;
 
     @Test
     public void whenGettingAllCommitments_withValidToken_thenReturnJsonArray() throws Exception {
@@ -51,22 +48,21 @@ public class CommitmentApiControllerTest {
         commitment1.setReductionId(2);
         List<Commitment> commitmentList = Arrays.asList(commitment1);
 
-        given(commitmentService.getCommitmentsFromUserId(1)).willReturn(commitmentList);
+        given(commitmentService.getCommitmentsFromUserId(0)).willReturn(commitmentList);
 
-        mvc.perform(get("/api/commitments/1/?token=1369732878")
+        mvc.perform(get("/api/commitments/?token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4In0.Uv5gLkpibODJxW3I1oj2JkoxDv2gYO2-1MaOaKoarmk")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$", hasSize(1)))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[0].reductionId", CoreMatchers.is(commitment1.getReductionId())));
+                .andExpect(content().json(asJsonString(commitmentList)));
     }
 
     @Test
     public void whenGettingAllCommitments_withInvalidToken_thenReturnUnauthorizedResponse() throws Exception {
         InvalidTokenException invalidTokenException = new InvalidTokenException(" ");
-        Mockito.doThrow(invalidTokenException).when(ourTokenService).validateTokenByValue(INVALID_TOKEN);
+        Mockito.doThrow(invalidTokenException).when(authenticationService).validateToken(INVALID_TOKEN);
 
-        mvc.perform(get("/api/commitments/1?token=" + INVALID_TOKEN)
+        mvc.perform(get("/api/commitments/?token=" + INVALID_TOKEN)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isUnauthorized())
@@ -113,11 +109,12 @@ public class CommitmentApiControllerTest {
 
     @Test
     public void whenDeletingCommitmentById_shouldReturnVoid() throws Exception{
-
-        mvc.perform(delete("/api/commitments/deletecommitment/4?token=142810290")
+        Integer commitmentId = 2;
+        mvc.perform(delete("/api/commitments/deletecommitment/"+ commitmentId+"?token=142810290")
         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
-                .andExpect(status().isOk());
+                .andExpect(status().isNoContent());
+
     }
 
 

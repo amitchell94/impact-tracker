@@ -1,9 +1,11 @@
 package com.codingnomads.impacttracker.presentation.api;
 
-import com.codingnomads.impacttracker.logic.JWT.OurTokenService;
+import com.codingnomads.impacttracker.logic.JWT.AuthenticationService;
 import com.codingnomads.impacttracker.logic.commitment.CommitmentService;
 import com.codingnomads.impacttracker.model.Commitment;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,36 +15,39 @@ import java.util.List;
 public class CommitmentApiController {
     private CommitmentService commitmentService;
 
-    private OurTokenService ourTokenService;
+
+    private AuthenticationService authenticationService;
 
     @Autowired
-    public CommitmentApiController(CommitmentService commitmentService, OurTokenService ourTokenService) {
+    public CommitmentApiController(CommitmentService commitmentService, AuthenticationService authenticationService) {
         this.commitmentService = commitmentService;
-        this.ourTokenService = ourTokenService;
+        this.authenticationService = authenticationService;
     }
 
-    @GetMapping("/{userId}")
-    public List<Commitment> allCommitments(@PathVariable Integer userId, @RequestParam(name = "token") String tokenValue) {
-        ourTokenService.validateTokenByValue(tokenValue);
-        return commitmentService.getCommitmentsFromUserId(userId);
+    @GetMapping("/")
+    public List<Commitment> allCommitments(@RequestParam(name = "token") String tokenValue) {
+        authenticationService.validateToken(tokenValue);
+        int userIdFromToken = authenticationService.getUserIdFromToken(tokenValue);
+        return commitmentService.getCommitmentsFromUserId(userIdFromToken);
     }
 
     @PostMapping("/addcommitment")
     public Commitment addCommitment(@RequestParam(name = "token") String tokenValue, @RequestBody Commitment commitment) {
-        ourTokenService.validateTokenByValue(tokenValue);
+        authenticationService.validateToken(tokenValue);
         return commitmentService.save(commitment);
     }
 
     @PutMapping("/updatecommitment/{id}")
     public Commitment updateCommitmentById(@RequestParam(name = "token") String tokenValue, @PathVariable int id, @RequestBody Commitment commitment) {
-        ourTokenService.validateTokenByValue(tokenValue);
+        authenticationService.validateToken(tokenValue);
         return commitmentService.updateCommitmentById(id, commitment);
     }
 
     @DeleteMapping("/deletecommitment/{id}")
-    public void deleteCommitment(@RequestParam(name = "token") String tokenValue, @PathVariable int id) {
-        ourTokenService.validateTokenByValue(tokenValue);
+    public ResponseEntity<Commitment> deleteCommitment(@RequestParam(name = "token") String tokenValue, @PathVariable int id) {
+        authenticationService.validateToken(tokenValue);
         commitmentService.deleteCommitmentById(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
 }

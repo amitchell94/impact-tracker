@@ -1,17 +1,7 @@
 package com.codingnomads.impacttracker.logic.JWT;
 
-import lombok.Data;
-
-import javax.persistence.*;
-
-@Data
-@Entity
-@Table(name = "token")
 public class Token {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
     private Integer id;
 
     private String value;
@@ -27,7 +17,6 @@ public class Token {
     public String getValue() {
         return value;
     }
-
     public void setValue(String value) {
         this.value = value;
     }
