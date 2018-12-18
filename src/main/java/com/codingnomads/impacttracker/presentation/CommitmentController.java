@@ -68,6 +68,7 @@ public class CommitmentController {
     public String goToUpdateCommitmentForm(@PathVariable(name = "id") Integer id, Model model){
         Commitment commitment = commitmentService.getCommitmentById(id);
         model.addAttribute("commitment", commitment);
+        model.addAttribute("reductionList",reductionService.getAllReductions());
         return "/updatecommitment";
     }
 
