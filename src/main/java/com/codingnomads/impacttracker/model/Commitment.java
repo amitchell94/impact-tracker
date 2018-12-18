@@ -3,6 +3,7 @@ package com.codingnomads.impacttracker.model;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class Commitment {
 
@@ -14,6 +15,8 @@ public class Commitment {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate endDate;
     private Integer amountToReduceBy;
+
+
 
     public Commitment() {
     }
@@ -94,5 +97,23 @@ public class Commitment {
 
     public void setReductionId(Integer reductionId) {
         this.reductionId = reductionId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Commitment that = (Commitment) o;
+        return Objects.equals(id, that.id) &&
+                Objects.equals(userId, that.userId) &&
+                Objects.equals(reductionId, that.reductionId) &&
+                Objects.equals(startDate, that.startDate) &&
+                Objects.equals(endDate, that.endDate) &&
+                Objects.equals(amountToReduceBy, that.amountToReduceBy);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, userId, reductionId, startDate, endDate, amountToReduceBy);
     }
 }

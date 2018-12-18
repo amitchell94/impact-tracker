@@ -27,11 +27,6 @@ public class AuthenticationApiController {
     private OurTokenService ourTokenService;
 
     @PostMapping("/authenticate")
-    //postman: http://localhost:8080/api/authenticate
-    //{
-    //    "user":"",
-    //    "password": ""
-    //}
     public ResponseEntity<Token> getCredentials(@RequestBody Credentials credentials){
         Boolean isUserValid = userService.checkCredentials(credentials.getUser(), credentials.getPassword());
 
@@ -43,6 +38,7 @@ public class AuthenticationApiController {
         }
 
     }
+
 
 
 }

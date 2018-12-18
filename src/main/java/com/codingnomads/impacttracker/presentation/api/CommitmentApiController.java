@@ -22,10 +22,27 @@ public class CommitmentApiController {
     }
 
     @GetMapping("/{userId}")
-    //postman request: http://localhost:8080/api/commitments/1
     public List<Commitment> allCommitments(@PathVariable Integer userId, @RequestParam(name = "token") String tokenValue) {
         ourTokenService.validateTokenByValue(tokenValue);
         return commitmentService.getCommitmentsFromUserId(userId);
+    }
+
+    @PostMapping("/addcommitment")
+    public Commitment addCommitment(@RequestParam(name = "token") String tokenValue, @RequestBody Commitment commitment) {
+        ourTokenService.validateTokenByValue(tokenValue);
+        return commitmentService.save(commitment);
+    }
+
+    @PutMapping("/updatecommitment/{id}")
+    public Commitment updateCommitmentById(@RequestParam(name = "token") String tokenValue, @PathVariable int id, @RequestBody Commitment commitment) {
+        ourTokenService.validateTokenByValue(tokenValue);
+        return commitmentService.updateCommitmentById(id, commitment);
+    }
+
+    @DeleteMapping("/deletecommitment/{id}")
+    public void deleteCommitment(@RequestParam(name = "token") String tokenValue, @PathVariable int id) {
+        ourTokenService.validateTokenByValue(tokenValue);
+        commitmentService.deleteCommitmentById(id);
     }
 
 }
