@@ -1,6 +1,6 @@
 package com.codingnomads.impacttracker.model;
 
-public class CommitmentPresentation {
+public class CommitmentPresentation { //presentation models should be in the presentation layer.
     private Integer id;
     private String commitment;
     private String startDate;

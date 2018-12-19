@@ -25,7 +25,7 @@ public class CommitmentController {
     private ReductionService reductionService;
 
     @Autowired
-    private StatisticsService statisticsService;
+    private StatisticsService statisticsService; //this is not used
 
     @Autowired
     private UserService userService;
@@ -33,7 +33,7 @@ public class CommitmentController {
     @Autowired
     private CommitmentUtils commitmentUtils;
     //add variable for username once security is added
-
+//remove comments!
     @GetMapping("/commitments")
     public ModelAndView allCommitments(ModelAndView modelAndView){
         modelAndView.addObject("commitmentlist",
@@ -69,15 +69,15 @@ public class CommitmentController {
         Commitment commitment = commitmentService.getCommitmentById(id);
         model.addAttribute("commitment", commitment);
         model.addAttribute("reductionList",reductionService.getAllReductions());
-        return "/updatecommitment";
+        return "/updatecommitment";//Try to keep the standard as other methods, use the modelAndView and set the view in there
     }
 
 
     @PostMapping("/updatecommitment/{id}")
     public String submitUpdatedCommitment(@PathVariable(name = "id") Integer id, @ModelAttribute Commitment commitment){
-        //is setting the userId for the commitment (using their signin) needed first?
+        //is setting the userId for the commitment (using their signin) needed first? //remove comments!
         commitmentService.updateCommitmentById(id, commitment);
-        return "redirect:/commitments";
+        return "redirect:/commitments"; //as the method bellow, use RedirectView
     }
 
     @GetMapping("/deletecommitment")

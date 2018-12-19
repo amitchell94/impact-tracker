@@ -35,6 +35,7 @@ public class MySqlUserRepository implements UserRepository {
                 .addValue("username", username);
         try {
             return jdbcTemplate.queryForObject(query, namedParameters, rowMapper);
+       //formatting is important!!!
         } catch (
                 EmptyResultDataAccessException e) {
             return null;

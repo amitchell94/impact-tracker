@@ -19,6 +19,7 @@ public class ImpactApiController {
         this.statisticsService = statisticsService;
     }
 
+ //probably i would create only one path and use a query parameter to select the value of the time period
     @GetMapping("/total")
     public Statistic getTotalImpactForUser(@RequestParam(name = "token") String tokenValue){
         authenticationService.validateToken(tokenValue);

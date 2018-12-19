@@ -28,6 +28,7 @@ public class StatisticsService {
         this.commitmentService = commitmentService;
     }
 
+    //This method should be private and nonstatic
     public static Double roundToTwoDP(Double input) {
         if (input == null) return null;
         return (double) Math.round(input * 100d) / 100d;
@@ -86,9 +87,38 @@ public class StatisticsService {
         return impactPerDay;
     }
 
+    //the name of this method should be getDaysCommitted, not set
+    //Instead of having a long method of 30 lines, it is easier to split it into small methods
+    // Did a small refactor but the code still quite complicated!
     private long setDaysCommitted(Commitment commitment, int timePeriodInDays) {
-
         LocalDate today = LocalDate.now();
+        if (commitment.getStartDate().isAfter(today)) {
+            return 0;
+        }
+
+        LocalDate impactPeriodStartDate = getImpactPeriodStartDate(timePeriodInDays, today);
+        LocalDate startCounter = getStartCounter(commitment, impactPeriodStartDate);
+
+        if (commitment.getEndDate() == null || commitment.getEndDate().isAfter(today)) {
+            return DAYS.between(startCounter, today);
+        } else if (!commitment.getEndDate().isBefore(impactPeriodStartDate)) {
+            return DAYS.between(startCounter, commitment.getEndDate());
+        }
+
+        return 0;
+    }
+
+    private LocalDate getStartCounter(Commitment commitment, LocalDate impactPeriodStartDate) {
+        LocalDate startCounter;
+        if (commitment.getStartDate().isBefore(impactPeriodStartDate)) {
+            startCounter = impactPeriodStartDate;
+        } else {
+            startCounter = commitment.getStartDate();
+        }
+        return startCounter;
+    }
+
+    private LocalDate getImpactPeriodStartDate(int timePeriodInDays, LocalDate today) {
         LocalDate impactPeriodStartDate = LocalDate.now();
         if (timePeriodInDays == 0) {
             impactPeriodStartDate = LocalDate.MIN;
@@ -99,26 +129,7 @@ public class StatisticsService {
         } else if (timePeriodInDays == 365) {
             impactPeriodStartDate = today.minusYears(1);
         }
-
-        LocalDate startCounter;
-
-        if (commitment.getStartDate().isAfter(today)) {
-            return 0;
-        }
-
-        if (commitment.getStartDate().isBefore(impactPeriodStartDate)) {
-            startCounter = impactPeriodStartDate;
-        } else {
-            startCounter = commitment.getStartDate();
-        }
-
-        if (commitment.getEndDate() == null || commitment.getEndDate().isAfter(today)) {
-            return DAYS.between(startCounter, today);
-        } else if (!commitment.getEndDate().isBefore(impactPeriodStartDate)) {
-            return DAYS.between(startCounter, commitment.getEndDate());
-        }
-
-        return 0;
+        return impactPeriodStartDate;
     }
 
 }

@@ -24,10 +24,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     private DataSource dataSource;
 
-    @Value("select u_name, u_password, u_active from user where u_name=?")
+    @Value("select u_name, u_password, u_active from user where u_name=?")//here you can use the value from properties instead of hardcoding it, since you already have this query in your properties file
     private String usersQuery;
 
-    @Value("select u.u_name, r.r_name from user u inner join user_role ur on(u.u_id=ur.u_id) inner join role r on(ur.r_id=r.r_id) where u.u_name=?")
+    @Value("select u.u_name, r.r_name from user u inner join user_role ur on(u.u_id=ur.u_id) inner join role r on(ur.r_id=r.r_id) where u.u_name=?")//same here
     private String rolesQuery;
 
     @Autowired

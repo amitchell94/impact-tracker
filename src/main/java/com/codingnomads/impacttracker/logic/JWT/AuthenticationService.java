@@ -23,7 +23,7 @@ public class AuthenticationService {
     public Token createToken(int userId){
         String tokenValue = Jwts.builder().setSubject(Integer.toString(userId)).signWith(tokenKey).compact();
 
-        if (tokenIsFromUser(userId, tokenValue)){
+        if (tokenIsFromUser(userId, tokenValue)){// do you need to check if the token is from the user? arent you just creating it for the user?
             return authenticationRepository.createToken(tokenValue);
         }else{
             return null;
@@ -35,7 +35,7 @@ public class AuthenticationService {
         }
     }
 
-    private boolean tokenIsFromUser(int userId, String tokenValue){
+    private boolean tokenIsFromUser(int userId, String tokenValue){ //i think this method can be deleted.
         return Jwts.parser()
                 .setSigningKey(tokenKey)
                 .parseClaimsJws(tokenValue)

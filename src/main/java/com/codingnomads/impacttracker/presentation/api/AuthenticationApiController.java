@@ -30,7 +30,7 @@ public class AuthenticationApiController {
         if (userFromDb != null) {
             return authenticationService.createToken(userFromDb.getId());
         }
-        return null;
+        return null;//Maybe would be better if you specify an error to the consumer of the api with status 401
     }
 
 }

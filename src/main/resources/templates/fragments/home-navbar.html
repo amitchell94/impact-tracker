@@ -4,6 +4,8 @@
 
 
 <head>
+    //head section is not for the content of the web, is for includes, metatags and so on. This div home-navbar should be in the body
+    (In this case since it is a fragment doesnt matter because only the fragment will be included and the rest of the page will be ignored, but its a good practice)
     <div th:fragment="home-navbar">
         <nav class="navbar navbar-expand-lg navbar-dark bg-info">
             <a class="navbar-brand" href="/">Impact Tracker</a>
@@ -14,6 +16,9 @@
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
                     <a class="nav-item nav-link"
+                       //it is a good practice that the URLS like /impacts are never hardcoded,
+                    instead you should create a constant and use it across the whole app. For HTMLs and Java code.
+                    (if you want to change the URL you will only have to change one place)
                        th:classappend="${#httpServletRequest.getRequestURI() == '/impacts' ? 'active':''}"
                        href="/impacts">My Impact</a>
                     <a class="nav-item nav-link"

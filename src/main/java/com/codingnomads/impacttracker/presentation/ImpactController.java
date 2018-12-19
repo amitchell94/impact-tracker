@@ -16,6 +16,7 @@ public class ImpactController {
     @Autowired
     UserService userService;
 
+    //Same here. one only controller and select different time periods via query param. DRY!
     @GetMapping("/impacts")
     public ModelAndView myImpact(ModelAndView modelAndView) {
         modelAndView.setViewName("my_impact");

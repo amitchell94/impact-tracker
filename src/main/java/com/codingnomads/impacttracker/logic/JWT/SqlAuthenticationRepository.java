@@ -9,6 +9,7 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
+//What is doing a repository implementation in the logic layer!!?
 @Repository
 public class SqlAuthenticationRepository implements AuthenticationRepository{
     private static final String TABLE_NAME = "token";
@@ -42,7 +43,7 @@ public class SqlAuthenticationRepository implements AuthenticationRepository{
     public boolean validateToken(String token) {
         String query = "SELECT token from " + TABLE_NAME + " where token = :token";
         SqlParameterSource namedParameters = new MapSqlParameterSource().addValue("token", token);
-        Token found = new Token();
+        Token found = new Token(); //why do you need this object? you are returning a boolean.
         try {
             found.setValue(jdbcTemplate.queryForObject(query, namedParameters, String.class));
         } catch (EmptyResultDataAccessException e) {

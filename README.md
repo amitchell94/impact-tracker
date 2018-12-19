@@ -38,7 +38,8 @@ Download the schema [2018-11-28_impact_tracker_initial.sql](/database/2018-11-28
 Import the schema into your MySQL server.
 
 #### Setting up database using terminal
-
+//are all the scripts in here updated with all the latest changes in the SQL files?
+ (Thats why i wouldnt put here all the scripts of the sql, just link them and the users will run them)
 In your terminal login to your MySQL as a user with the appropriate permissions.
 
 Then enter the following command to create your database.

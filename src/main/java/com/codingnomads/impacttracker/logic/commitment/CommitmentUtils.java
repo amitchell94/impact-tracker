@@ -13,6 +13,11 @@ import java.util.List;
 
 @Service
 public class CommitmentUtils {
+    //utils is a bad name, its only used when you dont find something specific that this class does.
+    //This class seems to be a transformer.
+    // CommitmentToPresentationCommitmentTransformer
+    // or CommitmentToPresentationTransformer
+    // would be better names
 
     ReductionService reductionService;
 
@@ -21,6 +26,9 @@ public class CommitmentUtils {
         this.reductionService = reductionService;
     }
 
+    //dont reinvent the wheel. StringUtils from Apache Commons has a method that does this.
+    // https://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/StringUtils.html#capitalize-java.lang.String-
+    //https://mvnrepository.com/artifact/org.apache.commons/commons-lang3/3.8.1
     private static String capitaliseFirstLetter(String input) {
         if (input == null || input.length() < 1) {
             return input;
@@ -36,6 +44,8 @@ public class CommitmentUtils {
         commitmentPresentation.setId(commitment.getId());
 
 
+        //text formatting could be extracted to other place. actually should be using Spring messages properties,
+        // just in case you will want to internationalize it some day https://www.baeldung.com/spring-boot-internationalization.
         if (commitment.getAmountToReduceBy() != null && commitment.getAmountToReduceBy() != 0) {
             commitmentPresentation.setCommitment(capitaliseFirstLetter(reduction.getReduction()) + " by " +
                     commitment.getAmountToReduceBy().toString() + " " + reduction.getUnit() + " per day");

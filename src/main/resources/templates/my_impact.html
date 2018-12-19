@@ -19,7 +19,7 @@
         </div>
     </form>
     </div>
-    <div th:if="${totalImpact.tonsOfCo2} > 0" class="card impact-card" style="background-image: url('/img/co2-card-background.jpg');">
+    <div th:if="${totalImpact.tonsOfCo2} > 0" class="card impact-card" style="background-image: url('/img/co2-card-background.jpg');"> // the style should be in a css file, nor hwew
         <h2>CO<sub>2</sub> Emissions</h2>
         <p>You have saved <span th:text="${totalImpact.tonsOfCo2}"></span> tons of CO<sub>2</sub> from entering the atmosphere!</p>
     </div>

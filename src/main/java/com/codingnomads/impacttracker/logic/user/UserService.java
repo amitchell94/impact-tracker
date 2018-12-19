@@ -49,13 +49,13 @@ public class UserService {
     @Transactional
     public void saveUser(User user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        Role userRole = roleRepository.findByRole("USER");
+        Role userRole = roleRepository.findByRole("USER"); //Shouldnt be hardcoded!
 
         User savedUser = userRepository.save(user);
         userRoleRepository.addUserRoleLink(savedUser.getId(), userRole.getId());
     }
 
-    public Boolean checkCredentials(String userName, String password) {
+    public Boolean checkCredentials(String userName, String password) { //this method is not in use! should be deleted!
         User thisUser = userRepository.getUserByUserName(userName);
         boolean passwordMatch = bCryptPasswordEncoder.matches(password, thisUser.getPassword());
         if(passwordMatch){

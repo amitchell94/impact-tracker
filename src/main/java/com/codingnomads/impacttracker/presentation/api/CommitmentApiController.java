@@ -30,7 +30,15 @@ public class CommitmentApiController {
         int userIdFromToken = authenticationService.getUserIdFromToken(tokenValue);
         return commitmentService.getCommitmentsFromUserId(userIdFromToken);
     }
-
+//normally i would not call the mappings
+// POST /api/commitments/addcommitment,
+// PUT /api/commitments/updatecommitment,
+// DELETE /api/commitments/deletecommitment.
+    // I would rather leave them as
+// POST /api/commitments
+// PUT  /api/commitments/{id}
+// DELETE /api/commitments/{id}
+    // its simpler to user and you can have the same path for different HTTP methods!
     @PostMapping("/addcommitment")
     public Commitment addCommitment(@RequestParam(name = "token") String tokenValue, @RequestBody Commitment commitment) {
         authenticationService.validateToken(tokenValue);

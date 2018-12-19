@@ -22,7 +22,7 @@ public class MySqlCommitmentRepository implements CommitmentRepository {
 
     private NamedParameterJdbcTemplate jdbcTemplate;
     private final String commitmentTable = "commitments";
-    private final CommitmentRowMapper rowMapper = new CommitmentRowMapper();
+    private final CommitmentRowMapper rowMapper = new CommitmentRowMapper();//this should be injected as a dependency through the constructor. The same goes for other Repositories with their mappers.
 
     @Autowired
     public MySqlCommitmentRepository(NamedParameterJdbcTemplate jdbcTemplate){
