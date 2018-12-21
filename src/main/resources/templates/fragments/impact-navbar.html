@@ -10,18 +10,20 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                <div class="navbar-nav">
+                <div class="navbar-nav d-flex">
                     <a class="nav-item nav-link"
                        th:classappend="${#httpServletRequest.getRequestURI() == '/impacts' ? 'active':''}"
                        href="/impacts">My Impact</a>
                     <a class="nav-item nav-link"
                        th:classappend="${#httpServletRequest.getRequestURI() == '/commitments' ? 'active':''}"
                        href="/commitments">Commitments</a>
-                    <a class="nav-item nav-link"
+                </div>
+                <div class="navbar-nav d-flex ml-auto">
+                    <a class="btn-outline-info btn small" type="button" value="Log Out"
                        sec:authorize="isAuthenticated()"
                        th:classappend="${#httpServletRequest.getRequestURI() == '/logout' ? 'active':''}"
                        href="/logout">Log Out</a>
-                    <a class="nav-item nav-link"
+                    <a class="btn-outline-info btn small" type="button" value="Register"
                        sec:authorize="isAnonymous()"
                        th:classappend="${#httpServletRequest.getRequestURI() == '/registration' ? 'active':''}"
                        href="/registration" th:href="@{/registration}">Register</a>
