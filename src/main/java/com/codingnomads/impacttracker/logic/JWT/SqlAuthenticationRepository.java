@@ -10,7 +10,7 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class SqlAuthenticationRepository implements AuthenticationRepository{
+public class SqlAuthenticationRepository implements AuthenticationRepository {
     private static final String TABLE_NAME = "token";
 
     private NamedParameterJdbcTemplate jdbcTemplate;
@@ -23,18 +23,23 @@ public class SqlAuthenticationRepository implements AuthenticationRepository{
     @Override
     public Token createToken(String tokenValue) {
 
-        String query = "INSERT INTO " + TABLE_NAME + " VALUES(null, :token)";
-        KeyHolder key = new GeneratedKeyHolder();
-        SqlParameterSource namedParameters = new MapSqlParameterSource()
-                .addValue("token", tokenValue);
-
-        jdbcTemplate.update(query, namedParameters, key);
-
         Token token = new Token();
 
-        token.setId(key.getKey().intValue());
-        token.setValue(tokenValue);
+        if (validateToken(tokenValue)) {
 
+            String query = "INSERT INTO " + TABLE_NAME + " VALUES(null, :token)";
+            KeyHolder key = new GeneratedKeyHolder();
+            SqlParameterSource namedParameters = new MapSqlParameterSource()
+                    .addValue("token", tokenValue);
+
+            jdbcTemplate.update(query, namedParameters, key);
+
+
+            token.setId(key.getKey().intValue());
+            token.setValue(tokenValue);
+        } else {
+            token.setValue(tokenValue);
+        }
         return token;
     }
 
