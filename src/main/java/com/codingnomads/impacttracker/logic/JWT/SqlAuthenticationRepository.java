@@ -25,7 +25,7 @@ public class SqlAuthenticationRepository implements AuthenticationRepository {
 
         Token token = new Token();
 
-        if (validateToken(tokenValue)) {
+        if (!validateToken(tokenValue)) {
 
             String query = "INSERT INTO " + TABLE_NAME + " VALUES(null, :token)";
             KeyHolder key = new GeneratedKeyHolder();
