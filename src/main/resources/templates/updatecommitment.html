@@ -4,7 +4,7 @@
     <div th:replace="fragments/header :: header"></div>
     <script src="/js/main.js"></script>
 </head>
-<body>
+<body onload="updateOnLoad()">
 <div th:replace="fragments/impact-navbar :: impact-navbar"/>
 <div class="container col-sm-4">
     <h3 class="header-padding">Update this commitment</h3>
