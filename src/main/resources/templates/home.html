@@ -2,15 +2,98 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <div th:replace="fragments/header :: header"></div>
+    <!-- Custom fonts for this template -->
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet"
+          type="text/css">
+
+    <!-- Custom styles for this template -->
+    <link href="css/masthead.css" rel="stylesheet">
 </head>
 <body>
 <div th:replace="fragments/home-navbar :: home-navbar"/>
-<div class="body">
-<h1>Discover how even small actions can have an impact.</h1>
-    <img class="irc_mi" src="/img/veggies.jpg" alt="Image result for vegetables and fruits" width="530" height="353" style="margin-top: 0px;"/>
-    <img class="irc_mi" src="/img/bike.jpg" alt="Image result for bicycle rider" width="530" height="353" style="margin-top: 0px;"/>
-    <img class="irc_mi" src="/img/cow-yellow-tag.jpg" alt="Image result for cows" width="530" height="353" style="margin-bottom: 0px;"/>
-    <img class="irc_mi" src="/img/Ford-Torino-GT.jpg" alt="Image result for muscle car" width="530" height="353" style="margin-bottom: 0px;"/>
-</div>
+
+<!-- Masthead -->
+<header class="masthead text-white text-center">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-9 mx-auto">
+                <h1 class="mb-5">Discover how even small actions can have an impact.</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-lg-4 col-xl-3 mx-auto">
+                <div class="col-12 col-md-12">
+                    <a href="/registration"><button type="submit" class="btn btn-block btn-lg btn-primary">Sign up!</button></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<section class="features-icons bg-light text-center">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="showcase-text mx-auto mb-5 mb-lg-0 mb-lg-3">
+                    <h3>How does it work?</h3>
+                    <p class="lead mb-0">The impact tracker allows you to add commitments to actions that will have a positive impact on the world.
+                        After entering your commitments, our calculator will estimate how much of a positive impact your actions have had on the world!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- Image Showcases -->
+<section class="showcase">
+    <div class="container-fluid p-0">
+        <div class="row no-gutters">
+            <div class="col-lg-6 order-lg-2 text-white showcase-img"
+                 style="background-image: url('img/eco.jpg');"></div>
+            <div class="col-lg-6 order-lg-1 my-auto showcase-text">
+                <h2>Environmentally Conscious?</h2>
+                <p class="lead mb-0">Keep track of how much your actions have had an impact on the environment
+                    such as greenhouse gas emissions and water usage!</p>
+            </div>
+        </div>
+        <div class="row no-gutters">
+            <div class="col-lg-6 text-white showcase-img" style="background-image: url('img/pigs.jpg');"></div>
+            <div class="col-lg-6 my-auto showcase-text">
+                <h2>Vegan or Vegetarian?</h2>
+                <p class="lead mb-0">Using our impact calculator you can find out how many animals lives
+                    you've saved with your commitment!</p>
+            </div>
+        </div>
+        <div class="row no-gutters">
+            <div class="col-lg-6 order-lg-2 text-white showcase-img"
+                 style="background-image: url('img/water.jpg');"></div>
+            <div class="col-lg-6 order-lg-1 my-auto showcase-text">
+                <h2>Trying to reduce your water usage?</h2>
+                <p class="lead mb-0">Find out how much water you've saved with your actions!</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action -->
+<section class="call-to-action text-white text-center">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-9 mx-auto">
+                <h2 class="mb-4">Ready to get started? Sign up now!</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-lg-4 col-xl-3 mx-auto">
+                <div class="col-12 col-md-12">
+                    <a href="/registration"><button type="submit" class="btn btn-block btn-lg btn-primary">Sign up!</button></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 </body>
 </html>
