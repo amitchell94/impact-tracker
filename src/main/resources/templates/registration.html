@@ -5,42 +5,46 @@
     <title>Registration Form</title>
 
     <div th:replace="fragments/header :: header"></div>
-
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet"
+          type="text/css">
 </head>
-<body>
+<body class="bg-light">
 
 <div th:replace="fragments/home-navbar :: home-navbar"/>
-
-<div class="container">
-    <div class="row">
-        <div class="container col-sm-4">
-            <form autocomplete="off" action="#" th:action="@{/registration}"
-                  th:object="${user}" method="post" class="form-horizontal"
-                  role="form">
-                <h2>Registration Form</h2>
-                <table>
-                    <tr>
-                        <td>Username:</td>
-                        <td><input type='text' name='username' value=''></td>
-                        <label th:if="${#fields.hasErrors('username')}" th:errors="*{username}"
-                               class="validation-message"></label>
-                    </tr>
-                    <tr>
-                        <td>Password:</td>
-                        <td><input type='password' name='password'/></td>
-                        <label
-                                th:if="${#fields.hasErrors('password')}" th:errors="*{password}"
-                                class="validation-message"></label>
-
-                    </tr>
-                    <tr>
-                        <td><input name="submit" type="submit" value="submit"/></td>
-                    </tr>
-                </table>
-                <span th:utext="${successMessage}"></span>
-            </form>
+<div class="container col-sm-3 login">
+    <h3 class="top-padding text-center">Create an Account</h3>
+    <form autocomplete="off" action="#" th:action="@{/registration}"
+          th:object="${user}" method="post" class="form-horizontal"
+          role="form">
+        <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="container card error-bg create-account">
+            <p class="my-auto">Username already exists</p>
         </div>
-    </div>
+        <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="container card error-bg create-account">
+            <p class="my-auto">Invalid password</p>
+        </div>
+        <div class="container bg-white card">
+            <div class="form-group row">
+                <label class="col-sm-12 col-form-label" for="username">Username</label>
+                <div class="col-sm-12">
+                    <input class="form-control" id="username" type='text' name='username' value=''>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-12 col-form-label" for="password">Password</label>
+                <div class="col-sm-12">
+                    <input required="required" type="password" name="password" class="form-control" id="password">
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-12 text-center">
+                    <button type="submit" class="col-sm-8 btn btn-success">Create Account</button>
+                </div>
+            </div>
+    </form>
+</div>
+<div th:if="${successMessage} == 'true'" class="container card success-bg text-center create-account">
+    <p class="my-auto">Account created! <a href="/login">Please login.</a></p>
+</div>
 </div>
 
 </body>

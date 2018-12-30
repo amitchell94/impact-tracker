@@ -41,14 +41,14 @@ public class UserController {
         if (userExists != null) {
             bindingResult
                     .rejectValue("username", "error.user",
-                            "There is already a user registered with that username");
+                            "Username already exists");
         }
 
         if (bindingResult.hasErrors()) {
             modelAndView.setViewName("registration");
         } else {
             userService.saveUser(user);
-            modelAndView.addObject("successMessage", "You are now registered. Please log in.");
+            modelAndView.addObject("successMessage", "true");
             modelAndView.addObject("user", new User());
             modelAndView.setViewName("registration");
         }

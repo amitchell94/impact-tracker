@@ -8,7 +8,7 @@ public class User {
 
     private Integer id;
     private String username;
-    @Length(min = 7, message = "*Your password must have at least 7 characters")
+    @Length(min = 7, message = "Password must have at least 7 characters")
     private String password;
 
     public User() {
