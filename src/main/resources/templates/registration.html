@@ -10,23 +10,25 @@
 </head>
 <body class="bg-light">
 
-<div th:replace="fragments/home-navbar :: home-navbar"/>
+<div th:replace="fragments/navbar :: navbar"/>
 <div class="container col-sm-3 login">
     <h3 class="top-padding text-center">Create an Account</h3>
     <form autocomplete="off" action="#" th:action="@{/registration}"
           th:object="${user}" method="post" class="form-horizontal"
           role="form">
-        <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="container card error-bg create-account">
+        <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}"
+             class="container card error-bg create-account">
             <p class="my-auto">Username already exists</p>
         </div>
-        <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="container card error-bg create-account">
+        <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}"
+             class="container card error-bg create-account">
             <p class="my-auto">Invalid password</p>
         </div>
         <div class="container bg-white card">
             <div class="form-group row">
                 <label class="col-sm-12 col-form-label" for="username">Username</label>
                 <div class="col-sm-12">
-                    <input class="form-control" id="username" type='text' name='username' value=''>
+                    <input required="required" class="form-control" id="username" type='text' name='username' value='' >
                 </div>
             </div>
             <div class="form-group row">
@@ -40,11 +42,11 @@
                     <button type="submit" class="col-sm-8 btn btn-success">Create Account</button>
                 </div>
             </div>
+        </div>
     </form>
-</div>
-<div th:if="${successMessage} == 'true'" class="container card success-bg text-center create-account">
-    <p class="my-auto">Account created! <a href="/login">Please login.</a></p>
-</div>
+    <div th:if="${successMessage} == 'true'" class="container card success-bg text-center create-account">
+        <p class="my-auto">Account created! <a href="/login">Please login.</a></p>
+    </div>
 </div>
 
 </body>

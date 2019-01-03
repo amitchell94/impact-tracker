@@ -10,7 +10,7 @@
 
 <body class="bg-light">
 
-<div th:replace="fragments/impact-navbar :: impact-navbar"></div>
+<div th:replace="fragments/navbar :: navbar"></div>
 <div class="container col-sm-3 login">
     <h3 class="top-padding text-center">Please Login</h3>
     <div th:if="${#httpServletRequest.getParameter('error') == 'true'}"
@@ -26,9 +26,9 @@
                 </div>
             </div>
             <div class="form-group row">
-                <label for="password1" class="col-sm-12 col-form-label">Password</label>
+                <label for="password" class="col-sm-12 col-form-label">Password</label>
                 <div class="col-sm-12">
-                    <input required="required" type="password" name="password" class="form-control" id="password1">
+                    <input required="required" type="password" name="password" class="form-control" id="password">
                 </div>
             </div>
             <div class="form-group row">

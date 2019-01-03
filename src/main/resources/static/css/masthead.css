@@ -23,7 +23,7 @@ header.masthead .overlay {
     width: 100%;
     top: 0;
     left: 0;
-    opacity: .3
+    opacity: .4
 }
 
 header.masthead h1 {
@@ -51,7 +51,8 @@ header.masthead a {
 
 .showcase .showcase-img {
     min-height: 30rem;
-    background-size: cover
+    background-size: cover;
+    background-position: center;
 }
 
 @media (min-width: 768px) {

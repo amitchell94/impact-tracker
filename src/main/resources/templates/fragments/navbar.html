@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+
+    <div th:fragment="navbar">
+        <link rel="stylesheet" href="webjars/font-awesome/4.3.0/css/font-awesome.min.css"/>
+        <nav class="navbar navbar-expand-lg navbar-light bg-white">
+            <a class="navbar-brand" href="/">Impact Tracker</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+                    aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <ul class="navbar-nav d-flex">
+                    <li><a class="nav-item nav-link large-nav-link"
+                       th:classappend="${#httpServletRequest.getRequestURI() == '/impacts' ? 'active':''}"
+                           href="/impacts">My Impact</a></li>
+                    <li><a class="nav-item nav-link large-nav-link"
+                       th:classappend="${#httpServletRequest.getRequestURI() == '/commitments' ? 'active':''}"
+                           href="/commitments">Commitments</a></li>
+                </ul>
+                <ul class="navbar-nav d-flex ml-auto">
+                    <li><a sec:authorize="isAnonymous()" class="nav-item nav-link large-nav-link"href="/registration">
+                        <i class="fa fa-user"></i>&nbsp; Sign Up</a></li>
+                    <li><a sec:authorize="isAnonymous()" class="nav-item nav-link large-nav-link" href="/login">
+                        <i class="fa fa-sign-in"></i>&nbsp; Sign In</a></li>
+                    <li><a class="nav-item nav-link"
+                       sec:authorize="isAuthenticated()"
+                       href="/logout"><span class="glyphicon glyphicon-log-in"></span> Log Out</a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</head>
+<body></body>
+</html>
+
+

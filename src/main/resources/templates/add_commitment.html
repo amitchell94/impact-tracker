@@ -6,7 +6,7 @@ xmlns:sec=“http://www.thymeleaf.org/extras/spring-security”>
     <script src="/js/main.js"></script>
 </head>
 <body onload="amountCheck()">
-<div th:replace="fragments/impact-navbar :: impact-navbar"/>
+<div th:replace="fragments/navbar :: navbar"/>
 <div class="container col-sm-6">
     <h3 class="header-padding">Add a new commitment</h3>
     <form action="#" th:action="@{/addcommitment}" th:object="${commitment}" method="post">

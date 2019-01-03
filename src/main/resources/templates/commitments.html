@@ -2,13 +2,15 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <div th:replace="fragments/header :: header"></div>
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet"
+          type="text/css">
 </head>
 
-<body>
-<div th:replace="fragments/impact-navbar :: impact-navbar"/>
-<div class="body">
-    <div class="container col-sm-10">
-        <h2>Your commitments</h2>
+<body class="bg-light">
+<div th:replace="fragments/navbar :: navbar"/>
+<div class="col-lg-12 top-padding">
+    <div class="container col-lg-10 col-sm-10 card">
+        <h2 class="header-padding" style="text-align: center">Your commitments</h2>
         <table class="table table-striped col">
             <thead>
             <th>Commitment</th>
@@ -31,7 +33,7 @@
             </tr>
         </table>
         <div class="form-row text-center">
-            <div class="col-12">
+            <div class="col-12" style="padding-bottom: 25px">
                 <a href="/addcommitment" class="btn btn-primary text-center col-4">Add new commitment</a>
             </div>
         </div>
@@ -39,3 +41,4 @@
 </div>
 </body>
 </html>
+

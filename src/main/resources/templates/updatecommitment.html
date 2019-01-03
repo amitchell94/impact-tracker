@@ -5,7 +5,7 @@
     <script src="/js/main.js"></script>
 </head>
 <body onload="updateOnLoad()">
-<div th:replace="fragments/impact-navbar :: impact-navbar"/>
+<div th:replace="fragments/navbar :: navbar"/>
 <div class="container col-sm-4">
     <h3 class="header-padding">Update this commitment</h3>
     <form action="#" th:action="@{'/updatecommitment/' + ${commitment.id}}" th:object="${commitment}" method="post">
