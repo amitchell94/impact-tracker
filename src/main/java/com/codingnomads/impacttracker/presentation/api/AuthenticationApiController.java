@@ -33,5 +33,9 @@ public class AuthenticationApiController {
         return null;
     }
 
+    @PostMapping("/register")
+    public User registerUser(@RequestBody User user) {
+        return userService.saveUser(user);
+    }
 }
 

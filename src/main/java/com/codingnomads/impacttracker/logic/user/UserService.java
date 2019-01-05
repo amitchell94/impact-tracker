@@ -47,12 +47,13 @@ public class UserService {
     }
 
     @Transactional
-    public void saveUser(User user) {
+    public User saveUser(User user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         Role userRole = roleRepository.findByRole("USER");
 
         User savedUser = userRepository.save(user);
         userRoleRepository.addUserRoleLink(savedUser.getId(), userRole.getId());
+        return savedUser;
     }
 
     public Boolean checkCredentials(String userName, String password) {
