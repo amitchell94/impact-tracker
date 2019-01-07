@@ -35,6 +35,12 @@ public class AuthenticationApiController {
 
     @PostMapping("/register")
     public User registerUser(@RequestBody User user) {
+        User userExists = userService.getUserByUserName(user.getUsername());
+
+        if (userExists != null) {
+            return null;
+        }
+
         return userService.saveUser(user);
     }
 }
