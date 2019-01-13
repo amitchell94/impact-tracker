@@ -34,6 +34,8 @@ public class CommitmentApiController {
     @PostMapping("/addcommitment")
     public Commitment addCommitment(@RequestParam(name = "token") String tokenValue, @RequestBody Commitment commitment) {
         authenticationService.validateToken(tokenValue);
+        int userIdFromToken = authenticationService.getUserIdFromToken(tokenValue);
+        commitment.setUserId(userIdFromToken);
         return commitmentService.save(commitment);
     }
 
