@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="fragments/header :: header"></div>
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet"
+          type="text/css">
+</head>
+<body class="bg-light">
+<div th:replace="fragments/navbar :: navbar"></div>
+<div class="container col-sm-8 top-padding text-center">
+    <img class="top-padding" src="/img/error.png" style="width: 100px">
+    <h1 class="top-padding ">Page not found</h1>
+    <h4 class="top-padding"><a href="/">Click here to return to the homepage</a></h4>
+</div>
+</body>
+</html>
