@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="fragments/header :: header"></div>
+    <!-- Custom fonts for this template -->
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet"
+          type="text/css">
+
+    <!-- Custom styles for this template -->
+    <link href="css/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="css/masthead.css" rel="stylesheet">
+    <link rel="stylesheet" href="webjars/font-awesome/4.3.0/css/font-awesome.min.css"/>
+    <script src="/webjars/chartjs/2.7.3/Chart.bundle.min.js"></script>
+
+</head>
+<body>
+<div th:replace="fragments/navbar :: navbar"/>
+
+<!-- Masthead -->
+<header class="masthead text-white text-center">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-md-3">
+            <span class="fa-stack fa-5x">
+              <i class="fas fa-circle fa-stack-2x text-primary"></i>
+              <i class="fas fa-paw fa-stack-1x fa-inverse"></i>
+            </span>
+                <h4 class="service-heading">100 Animals Saved</h4>
+            </div>
+            <div class="col-md-3">
+            <span class="fa-stack fa-5x">
+              <i class="fas fa-circle fa-stack-2x text-primary"></i>
+              <i class="fas fa-tree fa-stack-1x fa-inverse"></i>
+            </span>
+                <h4 class="service-heading">10 Acres Saved</h4>
+            </div>
+            <div class="col-md-3">
+            <span class="fa-stack fa-5x">
+              <i class="fas fa-circle fa-stack-2x text-primary"></i>
+              <i class="fas fa-cloud fa-stack-1x fa-inverse"></i>
+            </span>
+                <h4 class="service-heading">10 tons of CO2 Saved!</h4>
+            </div>
+            <div class="col-md-3">
+            <span class="fa-stack fa-5x">
+              <i class="fas fa-circle fa-stack-2x text-primary"></i>
+              <i class="fas fa-tint fa-stack-1x fa-inverse"></i>
+            </span>
+                <h4 class="service-heading">10 gallons of water saved!</h4>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="container">
+    <canvas id="canvas" width="200" height="100"></canvas>
+    <script th:inline="javascript">
+        var timeFormat = 'DD-MM-YYYY';
+
+        var config = {
+                type: 'line',
+                data: {
+                    datasets: [
+                        {
+                            label: "US Dates",
+                            data: [
+                                /*<![CDATA[*/
+
+                                /*[# th:each="chartpoint : ${chartpoints}"]*/
+                                {
+                                    x: /*[[${chartpoint.x}]]*/ 0,
+                                    y: /*[[${chartpoint.y}]]*/ 0
+                                },
+                                /*[/]*/
+                                /*]]>*/
+
+                            ]
+                            ,
+                            fill: false,
+                            borderColor:
+                                'red'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    title:
+                        {
+                            display: true,
+                            text:
+                                "Chart.js Time Scale"
+                        }
+                    ,
+                    scales: {
+                        xAxes: [{
+                            type: "time",
+                            time: {
+                                format: timeFormat,
+                                tooltipFormat: 'll'
+                            },
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Date'
+                            }
+                        }],
+                        yAxes:
+                            [{
+                                scaleLabel: {
+                                    display: true,
+                                    labelString: 'value'
+                                }
+                            }]
+                    }
+                }
+            }
+        ;
+
+        window.onload = function () {
+            var ctx = document.getElementById("canvas").getContext("2d");
+            window.myLine = new Chart(ctx, config);
+        };
+    </script>
+</div>
+</body>
+</html>
