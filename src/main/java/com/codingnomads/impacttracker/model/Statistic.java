@@ -1,22 +1,24 @@
 package com.codingnomads.impacttracker.model;
 
-public class Statistic {
-    private double tonsOfCo2;
-    private long gallonsOfWater;
+import com.codingnomads.impacttracker.logic.statistic.ImpactCalculation;
 
-    public double getTonsOfCo2() {
+public class Statistic {
+    private ImpactCalculation tonsOfCo2 = new ImpactCalculation();
+    private ImpactCalculation gallonsOfWater = new ImpactCalculation();
+
+    public ImpactCalculation getTonsOfCo2() {
         return tonsOfCo2;
     }
 
-    public void setTonsOfCo2(double tonsOfCo2) {
+    public void setTonsOfCo2(ImpactCalculation tonsOfCo2) {
         this.tonsOfCo2 = tonsOfCo2;
     }
 
-    public long getGallonsOfWater() {
+    public ImpactCalculation getGallonsOfWater() {
         return gallonsOfWater;
     }
 
-    public void setGallonsOfWater(long gallonsOfWater) {
+    public void setGallonsOfWater(ImpactCalculation gallonsOfWater) {
         this.gallonsOfWater = gallonsOfWater;
     }
 }

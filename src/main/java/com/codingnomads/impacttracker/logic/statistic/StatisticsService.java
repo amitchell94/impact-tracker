@@ -5,13 +5,13 @@ import com.codingnomads.impacttracker.logic.impact.ImpactService;
 import com.codingnomads.impacttracker.model.Commitment;
 import com.codingnomads.impacttracker.model.ImpactWithAverage;
 import com.codingnomads.impacttracker.model.Statistic;
+import com.codingnomads.impacttracker.presentation.ChartPoint;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 
 import static java.time.temporal.ChronoUnit.DAYS;
 
@@ -33,9 +33,41 @@ public class StatisticsService {
         return (double) Math.round(input * 100d) / 100d;
     }
 
+    public static ChartPoint[] convertChartRatesToChartPointArray(List<ChartRate> chartRates) {
+        List<ChartPoint> chartPoints = new ArrayList<>();
+
+        chartRates.sort(Comparator.comparing(ChartRate::getDate));
+        double currentImpactRate = 0;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+        for (int i = 0; i < chartRates.size(); i++) {
+            if (chartPoints.isEmpty()) {
+                chartPoints.add(new ChartPoint(0, chartRates.get(i).getDate().format(formatter)));
+            } else {
+                long noOfDays = DAYS.between(chartRates.get(i - 1).getDate(), chartRates.get(i).getDate());
+                if (noOfDays <= 0) {
+                    noOfDays = 1;
+                }
+                chartPoints.add(new ChartPoint(chartPoints.get(i - 1).getY() + (noOfDays * currentImpactRate), chartRates.get(i).getDate().format(formatter)));
+            }
+            currentImpactRate += chartRates.get(i).getImpactPerDay();
+        }
+        if (!chartPoints.isEmpty()) {
+            long noOfDays = DAYS.between(chartRates.get(chartRates.size() - 1).getDate(), LocalDate.now());
+            if (noOfDays <= 0) {
+                noOfDays = 1;
+            }
+            chartPoints.add(new ChartPoint(chartPoints.get(chartPoints.size() - 1).getY() + (noOfDays * currentImpactRate), LocalDate.now().format(formatter)));
+        }
+        ChartPoint[] charPointArray = new ChartPoint[chartPoints.size()];
+        chartPoints.toArray(charPointArray);
+        return charPointArray;
+    }
+
     public Statistic getImpactForTimePeriod(int userId, int timePeriodInDays) {
 
         List<Commitment> commitments = commitmentService.getCommitmentsFromUserId(userId);
+//        commitments.sort(Comparator.comparing(Commitment::getStartDate));
         Statistic impactInTimePeriod = new Statistic();
 
         Map<Integer, List<ImpactWithAverage>> reductionImpactMap = new HashMap<>();
@@ -52,13 +84,28 @@ public class StatisticsService {
             Statistic impactPerDay = getImpactPerDay(reductionImpactMap.get(reductionId),
                     commitment.getAmountToReduceBy());
 
-            impactInTimePeriod.setTonsOfCo2(impactInTimePeriod.getTonsOfCo2() + (impactPerDay.getTonsOfCo2() * daysCommitted));
+            impactInTimePeriod.getTonsOfCo2().setTotalImpact(impactInTimePeriod.getTonsOfCo2().getTotalImpact() + (impactPerDay.getTonsOfCo2().getTotalImpact() * daysCommitted));
 
-            impactInTimePeriod.setGallonsOfWater(impactInTimePeriod.getGallonsOfWater()
-                    + (impactPerDay.getGallonsOfWater() * daysCommitted));
+            if (impactPerDay.getTonsOfCo2().getTotalImpact() > 0) {
+                impactInTimePeriod.getTonsOfCo2().getChartPoints().add(new ChartRate(impactPerDay.getTonsOfCo2().getTotalImpact(), commitment.getStartDate()));
+                if (commitment.getEndDate() != null && !commitment.getEndDate().isAfter(LocalDate.now())) {
+                    impactInTimePeriod.getTonsOfCo2().getChartPoints().add(new ChartRate(0 - impactPerDay.getTonsOfCo2().getTotalImpact(), commitment.getEndDate()));
+                }
+            }
+
+            impactInTimePeriod.getGallonsOfWater().setTotalImpact(impactInTimePeriod.getGallonsOfWater().getTotalImpact()
+                    + (impactPerDay.getGallonsOfWater().getTotalImpact() * daysCommitted));
+
+            if (impactPerDay.getGallonsOfWater().getTotalImpact() > 0) {
+                impactInTimePeriod.getGallonsOfWater().getChartPoints().add(new ChartRate(impactPerDay.getGallonsOfWater().getTotalImpact(), commitment.getStartDate()));
+                if (commitment.getEndDate() != null && !commitment.getEndDate().isAfter(LocalDate.now())) {
+                    impactInTimePeriod.getGallonsOfWater().getChartPoints().add(new ChartRate(0 - impactPerDay.getGallonsOfWater().getTotalImpact(), commitment.getEndDate()));
+                }
+            }
         }
 
-        impactInTimePeriod.setTonsOfCo2(roundToTwoDP(impactInTimePeriod.getTonsOfCo2()));
+        impactInTimePeriod.getTonsOfCo2().setTotalImpact(roundToTwoDP(impactInTimePeriod.getTonsOfCo2().getTotalImpact()));
+
         return impactInTimePeriod;
     }
 
@@ -68,17 +115,17 @@ public class StatisticsService {
         for (ImpactWithAverage impact : impacts) {
             switch (impact.getImpact().getImpactType()) {
                 case "water use":
-                    if (amountCommitted ==  null || amountCommitted == 0) {
-                        impactPerDay.setGallonsOfWater((long) (impact.getImpact().getImpactPerUnit() * impact.getAveragePerDay()));
+                    if (amountCommitted == null || amountCommitted == 0) {
+                        impactPerDay.getGallonsOfWater().setTotalImpact((long) (impact.getImpact().getImpactPerUnit() * impact.getAveragePerDay()));
                     } else {
-                        impactPerDay.setGallonsOfWater((long) (impact.getImpact().getImpactPerUnit() * amountCommitted));
+                        impactPerDay.getGallonsOfWater().setTotalImpact((long) (impact.getImpact().getImpactPerUnit() * amountCommitted));
                     }
                     break;
                 case "co2 emissions":
-                    if (amountCommitted ==  null || amountCommitted == 0) {
-                        impactPerDay.setTonsOfCo2(impact.getImpact().getImpactPerUnit() * impact.getAveragePerDay());
+                    if (amountCommitted == null || amountCommitted == 0) {
+                        impactPerDay.getTonsOfCo2().setTotalImpact(impact.getImpact().getImpactPerUnit() * impact.getAveragePerDay());
                     } else {
-                        impactPerDay.setTonsOfCo2(impact.getImpact().getImpactPerUnit() * amountCommitted);
+                        impactPerDay.getTonsOfCo2().setTotalImpact(impact.getImpact().getImpactPerUnit() * amountCommitted);
                     }
                     break;
             }
@@ -120,5 +167,4 @@ public class StatisticsService {
 
         return 0;
     }
-
 }

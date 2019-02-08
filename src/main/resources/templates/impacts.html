@@ -11,6 +11,7 @@
     <link href="css/masthead.css" rel="stylesheet">
     <link rel="stylesheet" href="webjars/font-awesome/4.3.0/css/font-awesome.min.css"/>
     <script src="/webjars/chartjs/2.7.3/Chart.bundle.min.js"></script>
+    <script src="/js/countUp.js"></script>
 
 </head>
 <body>
@@ -21,55 +22,78 @@
     <div class="overlay"></div>
     <div class="container">
         <div class="row text-center">
-            <div class="col-md-3">
-            <span class="fa-stack fa-5x">
-              <i class="fas fa-circle fa-stack-2x text-primary"></i>
-              <i class="fas fa-paw fa-stack-1x fa-inverse"></i>
-            </span>
-                <h4 class="service-heading">100 Animals Saved</h4>
-            </div>
-            <div class="col-md-3">
-            <span class="fa-stack fa-5x">
-              <i class="fas fa-circle fa-stack-2x text-primary"></i>
-              <i class="fas fa-tree fa-stack-1x fa-inverse"></i>
-            </span>
-                <h4 class="service-heading">10 Acres Saved</h4>
-            </div>
-            <div class="col-md-3">
+            <div class="col-md-6">
             <span class="fa-stack fa-5x">
               <i class="fas fa-circle fa-stack-2x text-primary"></i>
               <i class="fas fa-cloud fa-stack-1x fa-inverse"></i>
             </span>
-                <h4 class="service-heading">10 tons of CO2 Saved!</h4>
+                <h4 class="service-heading"><div id="co2total">0</div> tons of CO<sub>2</sub> saved</h4>
+                <script th:inline="javascript">
+                    /*<![CDATA[*/
+                    var c = new CountUp("co2total",0,/*[[${co2stats}]]*/0,2);
+                    c.start();
+                    /*]]>*/
+                </script>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-6">
             <span class="fa-stack fa-5x">
               <i class="fas fa-circle fa-stack-2x text-primary"></i>
               <i class="fas fa-tint fa-stack-1x fa-inverse"></i>
             </span>
-                <h4 class="service-heading">10 gallons of water saved!</h4>
+                <h4 class="service-heading"><div id="watertotal">0</div> gallons of water saved!</h4>
+                <script th:inline="javascript">
+                    /*<![CDATA[*/
+                    var c = new CountUp("watertotal",0,/*[[${waterstats}]]*/0);
+                    c.start();
+                    /*]]>*/
+                </script>
             </div>
         </div>
     </div>
 </header>
-<div class="container">
-    <canvas id="canvas" width="200" height="100"></canvas>
-    <script th:inline="javascript">
-        var timeFormat = 'DD-MM-YYYY';
+<section class="features-icons bg-light text-center">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="showcase-text mx-auto mb-5 mb-lg-0 mb-lg-3">
+                    <h3>Keep track of how you have made a difference below!</h3>
+                   </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="features-icons bg-light text-center" style="background-image: url('/img/co2-card-background.jpg'); height: 250px ">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="showcase-text mx-auto mb-5 mb-lg-0 mb-lg-3 text-white">
+                    <h3>CO<sub>2</sub> Emissions</h3>
+                 </div>
+            </div>
+        </div>
+    </div>
+</section>
 
-        var config = {
+<div class="container bg-white col-md-8">
+    <canvas id="co2canvas" width="200" height="100"></canvas>
+    <script th:inline="javascript">
+        var timeFormat = 'YYYY-MM-DD';
+
+        var configco2 = {
                 type: 'line',
                 data: {
                     datasets: [
                         {
-                            label: "US Dates",
+                            label: "Tons of CO2 saved",
+                            lineTension: 0,
                             data: [
                                 /*<![CDATA[*/
 
-                                /*[# th:each="chartpoint : ${chartpoints}"]*/
+                                /*[# th:each="co2chartpoint : ${co2chartpoints}"]*/
                                 {
-                                    x: /*[[${chartpoint.x}]]*/ 0,
-                                    y: /*[[${chartpoint.y}]]*/ 0
+                                    label: "willy",
+                                    x: /*[[${co2chartpoint.x}]]*/ 0,
+                                    y: /*[[${co2chartpoint.y}]]*/ 0
                                 },
                                 /*[/]*/
                                 /*]]>*/
@@ -78,7 +102,7 @@
                             ,
                             fill: false,
                             borderColor:
-                                'red'
+                                'rgba(0, 123, 255,1)'
                         }
                     ]
                 },
@@ -88,7 +112,7 @@
                         {
                             display: true,
                             text:
-                                "Chart.js Time Scale"
+                                "Tons of CO2 saved over time"
                         }
                     ,
                     scales: {
@@ -107,17 +131,95 @@
                             [{
                                 scaleLabel: {
                                     display: true,
-                                    labelString: 'value'
+                                    labelString: 'Tons of CO2'
                                 }
                             }]
                     }
                 }
             }
         ;
+    </script>
+</div>
+<section class="features-icons bg-light text-center" style="background-image: url('/img/water-card-background.jpg'); height: 250px ">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="showcase-text mx-auto mb-5 mb-lg-0 mb-lg-3 text-white">
+                    <h3>Water Usage</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="container bg-white col-md-8">
+    <canvas id="watercanvas" width="200" height="100"></canvas>
+    <script th:inline="javascript">
+        var timeFormat = 'YYYY-MM-DD';
 
+        var configwater = {
+                type: 'line',
+                data: {
+                    datasets: [
+                        {
+                            label: "Gallons of water saved",
+                            lineTension: 0,
+                            data: [
+                                /*<![CDATA[*/
+
+                                /*[# th:each="waterchartpoint : ${waterchartpoints}"]*/
+                                {
+                                    label: "willy",
+                                    x: /*[[${waterchartpoint.x}]]*/ 0,
+                                    y: /*[[${waterchartpoint.y}]]*/ 0
+                                },
+                                /*[/]*/
+                                /*]]>*/
+
+                            ]
+                            ,
+                            fill: false,
+                            borderColor:
+                                'rgba(0, 123, 255,1)'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    title:
+                        {
+                            display: true,
+                            text:
+                                "Gallons of water saved over time"
+                        }
+                    ,
+                    scales: {
+                        xAxes: [{
+                            type: "time",
+                            time: {
+                                format: timeFormat,
+                                tooltipFormat: 'll'
+                            },
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Date'
+                            }
+                        }],
+                        yAxes:
+                            [{
+                                scaleLabel: {
+                                    display: true,
+                                    labelString: 'Gallons of Water'
+                                }
+                            }]
+                    }
+                }
+            }
+        ;
         window.onload = function () {
-            var ctx = document.getElementById("canvas").getContext("2d");
-            window.myLine = new Chart(ctx, config);
+            var ctxco2 = document.getElementById("co2canvas").getContext("2d");
+            window.myLine = new Chart(ctxco2, configco2);
+            var ctxwater = document.getElementById("watercanvas").getContext("2d");
+            window.myLine = new Chart(ctxwater, configwater);
         };
     </script>
 </div>

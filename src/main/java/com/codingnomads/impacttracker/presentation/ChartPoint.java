@@ -2,9 +2,9 @@ package com.codingnomads.impacttracker.presentation;
 
 public class ChartPoint {
     String x;
-    int y;
+    double y;
 
-    public ChartPoint(int y, String x) {
+    public ChartPoint(double y, String x) {
         this.x = x;
         this.y = y;
     }
@@ -17,11 +17,11 @@ public class ChartPoint {
         this.x = x;
     }
 
-    public int getY() {
+    public double getY() {
         return y;
     }
 
-    public void setY(int y) {
+    public void setY(double y) {
         this.y = y;
     }
 }
