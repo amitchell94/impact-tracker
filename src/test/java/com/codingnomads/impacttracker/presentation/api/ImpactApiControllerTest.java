@@ -38,8 +38,8 @@ public class ImpactApiControllerTest {
     @Test
     public void whenGettingTotalImpactForUserWithValidToken_returnTotalImpactForUser() throws Exception {
         Statistic statistic1 = new Statistic();
-        statistic1.setGallonsOfWater(5);
-        statistic1.setTonsOfCo2(1);
+        statistic1.getGallonsOfWater().setTotalImpact(5);
+        statistic1.getTonsOfCo2().setTotalImpact(1);
 
         given(statisticsService.getImpactForTimePeriod(0, 0)).willReturn(statistic1);
 
@@ -53,8 +53,8 @@ public class ImpactApiControllerTest {
     @Test
     public void whenGettingWeekImpactForUserWithValidToken_returnWeekImpactForUser() throws Exception {
         Statistic statistic1 = new Statistic();
-        statistic1.setGallonsOfWater(5);
-        statistic1.setTonsOfCo2(1);
+        statistic1.getGallonsOfWater().setTotalImpact(5);
+        statistic1.getTonsOfCo2().setTotalImpact(1);
 
         given(statisticsService.getImpactForTimePeriod(0, 7)).willReturn(statistic1);
 
@@ -68,8 +68,8 @@ public class ImpactApiControllerTest {
     @Test
     public void whenGettingMonthImpactForUserWithValidToken_returnMonthImpactForUser() throws Exception {
         Statistic statistic1 = new Statistic();
-        statistic1.setGallonsOfWater(5);
-        statistic1.setTonsOfCo2(1);
+        statistic1.getGallonsOfWater().setTotalImpact(5);
+        statistic1.getTonsOfCo2().setTotalImpact(1);
 
         given(statisticsService.getImpactForTimePeriod(0, 30)).willReturn(statistic1);
 
@@ -83,8 +83,8 @@ public class ImpactApiControllerTest {
     @Test
     public void whenGettingYearImpactForUserWithValidToken_returnYearImpactForUser() throws Exception {
         Statistic statistic1 = new Statistic();
-        statistic1.setGallonsOfWater(5);
-        statistic1.setTonsOfCo2(1);
+        statistic1.getGallonsOfWater().setTotalImpact(5);
+        statistic1.getTonsOfCo2().setTotalImpact(1);
 
         given(statisticsService.getImpactForTimePeriod(0, 365)).willReturn(statistic1);
 

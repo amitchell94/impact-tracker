@@ -79,8 +79,8 @@ public class StatisticsServiceTest {
 
        Statistic totalImpact = statisticsService.getImpactForTimePeriod(VALID_USER_ID,0);
 
-       assertThat(totalImpact.getTonsOfCo2()).isEqualTo(VALID_IMPACT_PER_UNIT*VALID_AVERAGE_PER_DAY);
-       assertThat(totalImpact.getGallonsOfWater()).isEqualTo(SECOND_VALID_IMPACT_PER_UNIT*SECOND_VALID_AVERAGE_PER_DAY);
+       assertThat(totalImpact.getTonsOfCo2().getTotalImpact()).isEqualTo(VALID_IMPACT_PER_UNIT*VALID_AVERAGE_PER_DAY);
+       assertThat(totalImpact.getGallonsOfWater().getTotalImpact()).isEqualTo(SECOND_VALID_IMPACT_PER_UNIT*SECOND_VALID_AVERAGE_PER_DAY);
 
    }
 
