@@ -1,6 +1,7 @@
 package com.codingnomads.impacttracker.logic.commitment;
 
 import com.codingnomads.impacttracker.model.Commitment;
+import com.codingnomads.impacttracker.model.CommitmentWithReduction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +22,10 @@ public class CommitmentService {
 
     public List<Commitment> getCommitmentsFromUserId (int userId) {
         return commitmentRepository.getCommitmentsFromUserId(userId);
+    }
+
+    public List<CommitmentWithReduction> getCommitmentsWithReductionsFromUserId(int userId) {
+        return commitmentRepository.getCommitmentsWithReductionsFromUserId(userId);
     }
 
     public Commitment updateCommitmentById(int id, Commitment commitment){

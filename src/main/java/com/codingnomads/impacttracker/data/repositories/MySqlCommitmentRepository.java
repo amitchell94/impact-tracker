@@ -2,8 +2,10 @@ package com.codingnomads.impacttracker.data.repositories;
 
 
 import com.codingnomads.impacttracker.data.rowmappers.CommitmentRowMapper;
+import com.codingnomads.impacttracker.data.rowmappers.CommitmentWithReductionRowMapper;
 import com.codingnomads.impacttracker.model.Commitment;
 import com.codingnomads.impacttracker.logic.commitment.CommitmentRepository;
+import com.codingnomads.impacttracker.model.CommitmentWithReduction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
@@ -22,7 +24,9 @@ public class MySqlCommitmentRepository implements CommitmentRepository {
 
     private NamedParameterJdbcTemplate jdbcTemplate;
     private final String commitmentTable = "commitments";
-    private final CommitmentRowMapper rowMapper = new CommitmentRowMapper();
+    private final String reductionTable = "reductions";
+    private final CommitmentRowMapper commitmentRowMapper = new CommitmentRowMapper();
+    private final CommitmentWithReductionRowMapper commitmentWithReductionRowMapper = new CommitmentWithReductionRowMapper();
 
     @Autowired
     public MySqlCommitmentRepository(NamedParameterJdbcTemplate jdbcTemplate){
@@ -44,7 +48,7 @@ public class MySqlCommitmentRepository implements CommitmentRepository {
         String query = "SELECT * from " + commitmentTable + " where c_u_id = :userId";
         SqlParameterSource namedParameters = new MapSqlParameterSource()
                 .addValue("userId", userId );
-        return jdbcTemplate.query(query, namedParameters, rowMapper);
+        return jdbcTemplate.query(query, namedParameters, commitmentRowMapper);
     }
 
     @Override
@@ -67,7 +71,17 @@ public class MySqlCommitmentRepository implements CommitmentRepository {
     public Commitment getCommitmentById(int id) {
         String query = "SELECT * FROM " + commitmentTable + " WHERE c_id = :id";
         SqlParameterSource namedParameters = new MapSqlParameterSource().addValue("id", id);
-        return jdbcTemplate.queryForObject(query, namedParameters, rowMapper);
+        return jdbcTemplate.queryForObject(query, namedParameters, commitmentRowMapper);
+    }
+
+    @Override
+    public List<CommitmentWithReduction> getCommitmentsWithReductionsFromUserId(int userId) {
+        String query = "SELECT c.*, r.r_reduction, r.r_unit FROM "+ commitmentTable +" AS c " +
+                "JOIN " + reductionTable + " AS r ON r.r_id = c.c_r_id " +
+                "WHERE c.c_u_id = :userId";
+        SqlParameterSource namedParameters = new MapSqlParameterSource()
+                .addValue("userId", userId );
+        return jdbcTemplate.query(query, namedParameters, commitmentWithReductionRowMapper);
     }
 
 

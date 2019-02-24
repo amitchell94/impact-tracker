@@ -4,6 +4,7 @@ import com.codingnomads.impacttracker.logic.JWT.AuthenticationService;
 import com.codingnomads.impacttracker.logic.JWT.InvalidTokenException;
 import com.codingnomads.impacttracker.logic.commitment.CommitmentService;
 import com.codingnomads.impacttracker.model.Commitment;
+import com.codingnomads.impacttracker.model.CommitmentWithReduction;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -43,12 +44,12 @@ public class CommitmentApiControllerTest {
 
     @Test
     public void whenGettingAllCommitments_withValidToken_thenReturnJsonArray() throws Exception {
-        Commitment commitment1 = new Commitment();
+        CommitmentWithReduction commitment1 = new CommitmentWithReduction();
         commitment1.setUserId(1);
         commitment1.setReductionId(2);
-        List<Commitment> commitmentList = Arrays.asList(commitment1);
+        List<CommitmentWithReduction> commitmentList = Arrays.asList(commitment1);
 
-        given(commitmentService.getCommitmentsFromUserId(0)).willReturn(commitmentList);
+        given(commitmentService.getCommitmentsWithReductionsFromUserId(0)).willReturn(commitmentList);
 
         mvc.perform(get("/api/commitments/?token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4In0.Uv5gLkpibODJxW3I1oj2JkoxDv2gYO2-1MaOaKoarmk")
                 .contentType(MediaType.APPLICATION_JSON))

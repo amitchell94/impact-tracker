@@ -1,6 +1,7 @@
 package com.codingnomads.impacttracker.logic.commitment;
 
 import com.codingnomads.impacttracker.model.Commitment;
+import com.codingnomads.impacttracker.model.CommitmentWithReduction;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -17,4 +18,6 @@ public interface CommitmentRepository {
     void deleteCommitmentById(int id);
 
     Commitment getCommitmentById(int id);
+
+    List<CommitmentWithReduction> getCommitmentsWithReductionsFromUserId(int userId);
 }

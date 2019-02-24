@@ -37,8 +37,8 @@ public class CommitmentController {
     @GetMapping("/commitments")
     public ModelAndView allCommitments(ModelAndView modelAndView){
         modelAndView.addObject("commitmentlist",
-                commitmentUtils.transformCommitmentListToCommitmentPresentationList(
-                        commitmentService.getCommitmentsFromUserId(userService.getCurrentUserId())));
+                commitmentUtils.transformCommitmentWithReductionListToCommitmentPresentationList(
+                        commitmentService.getCommitmentsWithReductionsFromUserId(userService.getCurrentUserId())));
         modelAndView.setViewName("/commitments");
         return modelAndView;
     }

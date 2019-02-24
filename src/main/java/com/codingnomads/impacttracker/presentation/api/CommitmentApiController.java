@@ -2,7 +2,9 @@ package com.codingnomads.impacttracker.presentation.api;
 
 import com.codingnomads.impacttracker.logic.JWT.AuthenticationService;
 import com.codingnomads.impacttracker.logic.commitment.CommitmentService;
+import com.codingnomads.impacttracker.logic.commitment.CommitmentUtils;
 import com.codingnomads.impacttracker.model.Commitment;
+import com.codingnomads.impacttracker.model.CommitmentWithReduction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +17,6 @@ import java.util.List;
 public class CommitmentApiController {
     private CommitmentService commitmentService;
 
-
     private AuthenticationService authenticationService;
 
     @Autowired
@@ -25,10 +26,12 @@ public class CommitmentApiController {
     }
 
     @GetMapping("/")
-    public List<Commitment> allCommitments(@RequestParam(name = "token") String tokenValue) {
+    public List<CommitmentWithReduction> allCommitments(@RequestParam(name = "token") String tokenValue) {
         authenticationService.validateToken(tokenValue);
         int userIdFromToken = authenticationService.getUserIdFromToken(tokenValue);
-        return commitmentService.getCommitmentsFromUserId(userIdFromToken);
+
+        List<CommitmentWithReduction> commitments = commitmentService.getCommitmentsWithReductionsFromUserId(userIdFromToken);
+        return commitments;
     }
 
     @PostMapping("/addcommitment")
